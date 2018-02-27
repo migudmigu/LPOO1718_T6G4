@@ -28,7 +28,7 @@ public abstract class GameBeing {
 	
 	public void moveB(char tecla) {
 		if (tecla == 'w') {
-			this.y++;
+			this.y--;
 //			if (!(mapa[heroi_y - 1][heroi_x] == 'X' || mapa[heroi_y - 1][heroi_x] == 'I')) {
 //				mapa[heroi_y][heroi_x] = ' ';
 //				heroi_y--;
@@ -52,7 +52,7 @@ public abstract class GameBeing {
 //			}
 		}
 		if (tecla == 's') {
-			this.y--;
+			this.y++;
 //			if (!(mapa[heroi_y + 1][heroi_x] == 'X' || mapa[heroi_y + 1][heroi_x] == 'I')) {
 //				mapa[heroi_y][heroi_x] = ' ';
 //				heroi_y++;

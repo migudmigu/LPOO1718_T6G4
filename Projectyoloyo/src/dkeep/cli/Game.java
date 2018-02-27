@@ -3,6 +3,8 @@ package dkeep.cli;
 
 import java.util.Scanner;
 
+import com.sun.activation.registries.MailcapParseException;
+
 import dkeep.logic.GameBeing;
 import dkeep.logic.Guard;
 import dkeep.logic.Hero;
@@ -51,9 +53,20 @@ public class Game {
 
 	public static void handler(char key, Hero hero) {
 		hero.moveB(key);
-		map.updateMap();
-		
-		
+		updateMap();
 	}
 	
+	public static void updateMap() {
+		map.resetMap(1);
+		System.out.println(hero.getX());
+		System.out.println(hero.getY());
+		
+		for( int i = 0 ; i < map.getMapa().length; i++) {
+			for( int j = 0 ; j < map.getMapa()[i].length ; j++) {
+				
+				if(i == hero.getY() && j == hero.getX())
+					map.setCell(i,j,'H');
+			}
+		}
+	}
 }

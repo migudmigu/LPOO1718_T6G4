@@ -26,8 +26,11 @@ public class Map{
 		{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
 	public Map(int m) {
-		if (m == 1)
-			mapa = mapa1;
+		if (m == 1) {
+			mapa = mapa1.clone();
+			for(int i = 0; i < mapa1.length; i++)
+			    this.mapa[i] = mapa1[i].clone();
+		}
 		else if (m == 2)
 			mapa = mapa2;
 	}
@@ -39,9 +42,9 @@ public class Map{
 			mapa = mapa2;
 	}
 
-//	public char[][] getMapa() {
-//		return mapa;
-//	}
+	public char[][] getMapa() {
+		return mapa;
+	}
 
 	public char getCell(int x, int y) {
 		return mapa[x][y];
@@ -49,6 +52,15 @@ public class Map{
 
 	public void setCell(int x, int y, char symbol) {
 		mapa[x][y] = symbol;
+	}
+	
+	public void resetMap(int m) {
+		if (m == 1) {
+			for(int i = 0; i < mapa1.length; i++)
+			    this.mapa[i] = mapa1[i].clone();
+		}
+		else if (m == 2)
+			this.mapa = mapa2;
 	}
 	
 	public void printMapa() {
@@ -59,11 +71,5 @@ public class Map{
 		}
 	}
 	
-	public void updateMap() {
-		for( int i = 0 ; i < mapa.length; i++) {
-			for( int j = 0 ; j < mapa[i].length ; j++) {
-				if(mapa[i][j] == )
-			}
-		}
-	}
+	
 }
