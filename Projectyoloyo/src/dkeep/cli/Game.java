@@ -9,6 +9,7 @@ import com.sun.activation.registries.MailcapParseException;
 import dkeep.logic.GameBeing;
 import dkeep.logic.Guard;
 import dkeep.logic.Hero;
+import dkeep.logic.Key;
 import dkeep.logic.Lever;
 import dkeep.logic.Map;
 import dkeep.logic.Ogre;
@@ -21,6 +22,7 @@ public class Game {
 	private static Lever lever;
 	private static Ogre ogre;
 	private static Random r;
+	private static Key key;
 	
 	private int gameover = 0;
 	
@@ -30,6 +32,7 @@ public class Game {
 		guard = new Guard(8,1);
 		lever = new Lever(7,8);
 		ogre = new Ogre(4,1);
+		key = new Key(7,1);
 	}
 	
 	public static void main(String[] args) {
@@ -60,58 +63,68 @@ public class Game {
 		return tecla;
 	}
 
-	public static void handler(char key, Hero hero,Guard guard, Game game) {
+	public static void handler(char key, Hero hero, Guard guard, Game game) {
 		hero.moveB(key, map);
 		if (map.getM() == 1) {
 			hero.triggerLever(lever);
 			guard.moveB(guard.getPathmove(), map);
-			if (GameBeing.checkColision(hero, guard) == 1) {
-				game.gameover = 1;
-				System.out.println("Gameover. Try again!\n");
-			}
 		}
 		else {
-//			ogre.moveB(ogre.getRandnum(), map);
+			ogre.moveB(ogre.getRandnum(), map);
+			game.getKey().findKey(game);
+			ogre.ogreKey();
+		}
+		
+		if (GameBeing.checkColision(game) == 1) {
+			game.gameover = 1;
+			System.out.println("Gameover. Try again!\n");
 		}
 		updateMap(game);
 	}
 
 	public static void updateMap(Game game) {
+
+//		System.out.println(hero.getX());
+//		System.out.println(hero.getY());
+// 		System.out.println('\n');
+//		System.out.println(guard.getX());
+//		System.out.println(guard.getY());
+//		System.out.println(ogre.getX());
+//		System.out.println(ogre.getY());
+		
 		map.resetMap(map.getM());
-		// System.out.println(hero.getX());
-		// System.out.println(hero.getY());
-		// System.out.println('\n');
-		// System.out.println(guard.getX());
-		// System.out.println(guard.getY());
 		if (map.getM() == 1) {
 			for (int i = 0; i < map.getMapa().length; i++) {
 				for (int j = 0; j < map.getMapa()[i].length; j++) {
 
 					if (i == hero.getY() && j == hero.getX())
-						map.setCell(i, j, 'H');
+						map.setCell(i, j, hero.getSymbol());
 
 					if (i == guard.getY() && j == guard.getX())
-						map.setCell(i, j, 'G');
+						map.setCell(i, j, guard.getSymbol());
 
 					if (i == lever.getY() && j == lever.getX())
-						map.setCell(i, j, 'k');
+						map.setCell(i, j, lever.getSymbol());
 
 					changeDoors(i, j);
 
 					if (hero.getX() == 0 && (hero.getY() == 5 || hero.getY() == 6))
 						map.setMap(2, game);
+				}
 			}
-		}
 		}
 		else if(map.getM() == 2) {
 			for (int i = 0; i < map.getMapa().length; i++) {
 				for (int j = 0; j < map.getMapa()[i].length; j++) {
 
+					if (i == key.getY() && j == key.getX())
+						map.setCell(i, j, key.getSymbol());
+					
 					if (i == hero.getY() && j == hero.getX())
-						map.setCell(i, j, 'H');
+						map.setCell(i, j, hero.getSymbol());
 
 					if (i == ogre.getY() && j == ogre.getX())
-						map.setCell(i, j, 'O');
+						map.setCell(i, j, ogre.getSymbol());
 
 					changeDoors(i, j);
 				}
@@ -132,5 +145,21 @@ public class Game {
 	
 	public Guard getGuard() {
 		return this.guard;
+	}
+	
+	public Map getMap() {
+		return this.map;
+	}
+	
+	public Ogre getOgre() {
+		return this.ogre;
+	}
+	
+	public Key getKey() {
+		return this.key;
+	}
+	
+	public Lever getLever() {
+		return this.lever;
 	}
 }
