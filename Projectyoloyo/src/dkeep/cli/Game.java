@@ -71,7 +71,7 @@ public class Game {
 			}
 		}
 		else {
-			ogre.moveB(ogre.getRandnum(), map);
+//			ogre.moveB(ogre.getRandnum(), map);
 		}
 		updateMap(game);
 	}
