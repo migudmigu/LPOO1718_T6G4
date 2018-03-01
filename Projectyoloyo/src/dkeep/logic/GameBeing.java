@@ -26,38 +26,36 @@ public abstract class GameBeing {
 		this.y=y;
 	}
 	
-	public void moveB(char tecla) {
+	public void moveB(char tecla, Map map) {
 		if (tecla == 'w') {
-			this.y--;
-//			if (!(mapa[heroi_y - 1][heroi_x] == 'X' || mapa[heroi_y - 1][heroi_x] == 'I')) {
-//				mapa[heroi_y][heroi_x] = ' ';
-//				heroi_y--;
-//				mapa[heroi_y][heroi_x] = 'H';
-//			}
+			if (!(map.getMapa()[this.getY()-1][this.getX()] == 'X' || map.getMapa()[this.getY()-1][this.getX()] == 'I')) {
+				this.y--;
+			}
 		}
 		if (tecla == 'a') {
-			this.x--;
-//			if (!(mapa[heroi_y][heroi_x - 1] == 'X' || mapa[heroi_y][heroi_x - 1] == 'I')) {
-//				mapa[heroi_y][heroi_x] = ' ';
-//				heroi_x--;
-//				mapa[heroi_y][heroi_x] = 'H';
-//			}
+			if (!(map.getMapa()[this.getY()][this.getX()-1] == 'X' || map.getMapa()[this.getY()][this.getX()-1] == 'I')) {
+				this.x--;
+			}
 		}
 		if (tecla == 'd') {
-			this.x++;
-//			if (!(mapa[heroi_y][heroi_x + 1] == 'X' || mapa[heroi_y][heroi_x + 1] == 'I')) {
-//				mapa[heroi_y][heroi_x] = ' ';
-//				heroi_x++;
-//				mapa[heroi_y][heroi_x] = 'H';
-//			}
+			if (!(map.getMapa()[this.getY()][this.getX()+1] == 'X' || map.getMapa()[this.getY()][this.getX()+1] == 'I')) {
+				this.x++;
+			}
 		}
 		if (tecla == 's') {
-			this.y++;
-//			if (!(mapa[heroi_y + 1][heroi_x] == 'X' || mapa[heroi_y + 1][heroi_x] == 'I')) {
-//				mapa[heroi_y][heroi_x] = ' ';
-//				heroi_y++;
-//				mapa[heroi_y][heroi_x] = 'H';
-//			}
+			if (!(map.getMapa()[this.getY()+1][this.getX()] == 'X' || map.getMapa()[this.getY()+1][this.getX()] == 'I')) {
+				this.y++;
+			}
 		}
+	}
+
+	public static int checkColision(Hero hero, Guard guard) {
+		if (hero.getX() == guard.getX() && hero.getY() == guard.getY())
+			return 1;
+		else if(hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1))
+			return 1;
+		else if (hero.getY() == guard.getY() && (hero.getX() == guard.getX() + 1 || hero.getX() == guard.getX() - 1))
+			return 1;
+		return 0;
 	}
 }
