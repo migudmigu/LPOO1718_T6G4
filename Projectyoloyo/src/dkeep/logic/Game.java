@@ -4,7 +4,7 @@ public class Game {
 
 	public int gameOver = 0;
 	public int levNum = 1;
-	public int keyX, keyY;
+	public int keyX=0, keyY=0;
 	public boolean doorsOpened = false;
 	Hero hero;
 	Guard guard;
@@ -31,6 +31,7 @@ public class Game {
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'O') {
 					ogre = new Ogre(i, k, 'O');
+					ogre.possibleClubPos(level.map);
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'k') {
 					keyX = i;
@@ -49,10 +50,12 @@ public class Game {
 		if (levNum == 1) {
 			guard.moveGuard(level.map);
 			checkColisionGuard();
-			checkColisionKey();
-		} else if(levNum == 2) {
+		} else if (levNum == 2) {
 			ogre.moveOgre(level.map);
+			checkColisionOgreClub();
 		}
+		
+		checkColisionKey();
 	}
 
 	public void checkColisionGuard() {
@@ -68,6 +71,31 @@ public class Game {
 		else if (hero.getX() == guard.getX() - 1 && hero.getY() == guard.getY())
 			gameOver = 1;
 	}
+	
+	public void checkColisionOgreClub() {
+
+		if (hero.getX() == ogre.getX() && hero.getY() == ogre.getY())
+			gameOver = 1;
+		else if (hero.getX() == ogre.getX() && hero.getY() == ogre.getY() + 1)
+			gameOver = 1;
+		else if (hero.getX() == ogre.getX() && hero.getY() == ogre.getY() - 1)
+			gameOver = 1;
+		else if (hero.getX() == ogre.getX() + 1 && hero.getY() == ogre.getY())
+			gameOver = 1;
+		else if (hero.getX() == ogre.getX() - 1 && hero.getY() == ogre.getY())
+			gameOver = 1;
+		
+		if (hero.getX() == ogre.clubX && hero.getY() == ogre.clubY)
+			gameOver = 1;
+		else if (hero.getX() == ogre.clubX && hero.getY() == ogre.clubY + 1)
+			gameOver = 1;
+		else if (hero.getX() == ogre.clubX && hero.getY() == ogre.clubY - 1)
+			gameOver = 1;
+		else if (hero.getX() == ogre.clubX + 1 && hero.getY() == ogre.clubY)
+			gameOver = 1;
+		else if (hero.getX() == ogre.clubX - 1 && hero.getY() == ogre.clubY)
+			gameOver = 1;
+	}
 
 	public void changeDoorsBoolean() {
 
@@ -79,10 +107,23 @@ public class Game {
 
 	public void checkColisionKey() {
 
-		if (hero.getX() == keyX && hero.getY() == keyY) {
-			changeDoorsBoolean();
-			openDoors();
+		if (levNum == 1) {
+			if (hero.getX() == keyX && hero.getY() == keyY) {
+				changeDoorsBoolean();
+				openDoors();
+			}
+		} else if (levNum==2){
+			if(hero.getX() == keyX && hero.getY() == keyY) {
+				hero.setSymbol('K');
+				level.map[keyX][keyY] = ' ';
+			}
+			
+			if(ogre.getX() == keyX && ogre.getY() == keyY)
+				ogre.setSymbol('$');
+			else
+				ogre.setSymbol('O');
 		}
+		
 	}
 
 	public void openDoors() {
@@ -101,6 +142,8 @@ public class Game {
 			}
 		}
 	}
+	
+
 
 	public void printMap() {
 		for (int i = 0; i < level.map.length; i++) {
@@ -110,6 +153,11 @@ public class Game {
 					System.out.print(hero.getSymbol());
 				else if (ogre != null && ogre.getX() == i && ogre.getY() == k) {
 					System.out.print(ogre.getSymbol());
+				} else if (ogre != null && ogre.clubX == i && ogre.clubY == k) {
+					if (level.map[i][k] == 'k')
+						System.out.print('$');
+					else
+						System.out.print('*');
 				} else if (guard != null && guard.getX() == i && guard.getY() == k) {
 					System.out.print(guard.getSymbol());
 				} else {
@@ -130,5 +178,13 @@ public class Game {
 		this.guard = null;
 		this.findSomething();
 
+	}
+	
+	public int getKeyX() {
+		return keyX;
+	}
+	
+	public int getKeyY() {
+		return keyY;
 	}
 }
