@@ -16,7 +16,7 @@ public class Level {
 	}
 	
 	protected char map[][];
-	protected char map1[][] = { 
+	protected char map1[][] = {
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', ' ', 'H', ' ', 'I', ' ', 'X', ' ', 'G', 'X' }, 
 			{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
