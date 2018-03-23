@@ -8,9 +8,9 @@ public class Game {
 	public boolean doorsOpened = false;
 	Hero hero;
 	Guard guard;
-	Ogre ogre[];
+	Ogre ogre;
 
-	Level level = new Level();
+	Level level = new Level(1);
 
 	public Game() {
 
@@ -30,7 +30,7 @@ public class Game {
 					guard = new Guard(i, k, 'G');
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'O') {
-					ogre[0] = new Ogre(i, k, 'O');
+					ogre = new Ogre(i, k, 'O');
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'k') {
 					keyX = i;
@@ -43,7 +43,8 @@ public class Game {
 	}
 
 	public void handler(char key) {
-		hero.moveCharacter(key, level.map);
+		if(hero.moveHero(key, level.map))
+			changeLevel(2);
 		
 		if(levNum == 1) {
 			guard.moveGuard(level.map);
@@ -87,10 +88,13 @@ public class Game {
 			
 			for (int k = 0; k < level.map[i].length; k++) {
 
-				if(level.map[i][k] == 'I')
+				if(i==0 || k == 0 || i == level.map.length-1 || k == level.map[0].length) {
+					if(level.map[i][k] == 'I')
 					level.map[i][k] = 's';
-				else if(level.map[i][k] == 's')
-					level.map[i][k] = 'I';
+					else if(level.map[i][k] == 's')
+						level.map[i][k] = 'I';
+				}
+				
 			}
 		}
 	}
@@ -99,12 +103,13 @@ public class Game {
 
 		for (int i = 0; i < level.map.length; i++) {
 			for (int k = 0; k < level.map[i].length; k++) {
+				
 				if(hero.getX() == i && hero.getY() == k)
 					System.out.print(hero.getSymbol());
 				
 				else if	(ogre != null) {
-					if(ogre[0].getX() == i && ogre[0].getY() == k) 
-						System.out.print(ogre[0].getSymbol());
+					if(ogre.getX() == i && ogre.getY() == k)
+						System.out.print(ogre.getSymbol());
 				}
 				else if(guard.getX() == i && guard.getY() == k) 
 					System.out.print(guard.getSymbol());
@@ -113,5 +118,14 @@ public class Game {
 			}
 			System.out.println();
 		}
+	}
+	
+	public void changeLevel(int l) {
+		levNum=l;
+		this.level = new Level(l);
+		this.hero = null;
+		this.guard = null;
+		this.findSomething();
+		
 	}
 }

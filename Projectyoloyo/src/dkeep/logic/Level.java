@@ -2,11 +2,17 @@ package dkeep.logic;
 
 public class Level {
 	
-	public Level() {
-		
+	public Level(int l) {
+		if(l==1) {
 		map = map1.clone();
 		for (int i = 0; i < map1.length; i++)
 			this.map[i] = map1[i].clone();
+		} else if(l==2) {
+			map = map2.clone();
+			for (int i = 0; i < map2.length; i++)
+				this.map[i] = map2[i].clone();
+			
+		}
 	}
 	
 	protected char map[][];
