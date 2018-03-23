@@ -50,6 +50,8 @@ public class Game {
 			guard.moveGuard(level.map);
 			checkColisionGuard();
 			checkColisionKey();
+		} else if(levNum == 2) {
+			ogre.moveOgre(level.map);
 		}
 	}
 
