@@ -101,7 +101,6 @@ public class Game {
 	}
 
 	public void printMap() {
-
 		for (int i = 0; i < level.map.length; i++) {
 			for (int k = 0; k < level.map[i].length; k++) {
 
