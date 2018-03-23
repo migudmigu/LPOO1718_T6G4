@@ -121,6 +121,7 @@ public class Game {
 	}
 	
 	public void changeLevel(int l) {
+		
 		levNum=l;
 		this.level = new Level(l);
 		this.hero = null;
