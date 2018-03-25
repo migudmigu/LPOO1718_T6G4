@@ -7,7 +7,7 @@ public class Game {
 	public int keyX=0, keyY=0;
 	public boolean doorsOpened = false;
 	Hero hero;
-	Guard guard;
+	SuspiciousGuard guard;
 	Ogre ogre;
 
 	Level level = new Level(1);
@@ -27,7 +27,7 @@ public class Game {
 					hero = new Hero(i, k, 'H');
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'G') {
-					guard = new Guard(i, k, 'G');
+					guard = new SuspiciousGuard(i, k, 'G');
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'O') {
 					ogre = new Ogre(i, k, 'O');
@@ -48,7 +48,7 @@ public class Game {
 			changeLevel(2);
 
 		if (levNum == 1) {
-			guard.moveGuard(level.map);
+			guard.moveSuspiciousGuard(level.map);
 			checkColisionGuard();
 		} else if (levNum == 2) {
 			ogre.moveOgre(level.map);
@@ -122,8 +122,7 @@ public class Game {
 				ogre.setSymbol('$');
 			else
 				ogre.setSymbol('O');
-		}
-		
+		}	
 	}
 
 	public void openDoors() {
@@ -143,8 +142,6 @@ public class Game {
 		}
 	}
 	
-
-
 	public void printMap() {
 		for (int i = 0; i < level.map.length; i++) {
 			for (int k = 0; k < level.map[i].length; k++) {
