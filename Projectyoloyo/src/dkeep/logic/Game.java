@@ -4,11 +4,11 @@ public class Game {
 
 	public int gameOver = 0;
 	public int levNum = 1;
-	public int keyX=0, keyY=0;
+	public int keyX = 0, keyY = 0;
 	public boolean doorsOpened = false;
 	Hero hero;
 	SuspiciousGuard guard;
-	Ogre ogre;
+	Ogre[] ogre = new Ogre[3];;
 
 	Level level = new Level(1);
 
@@ -19,21 +19,32 @@ public class Game {
 
 	public void findSomething() {
 
+		int ogreNumber = 0;
+
 		for (int i = 0; i < level.map.length; i++) {
 
 			for (int k = 0; k < level.map[i].length; k++) {
 
 				if (level.map[i][k] == 'H') {
+					
 					hero = new Hero(i, k, 'H');
 					level.eraseCell(i, k);
+				} else if (level.map[i][k] == 'A') {
+					
+					hero = new Hero(i, k, 'A');
+					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'G') {
+					
 					guard = new SuspiciousGuard(i, k, 'G');
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'O') {
-					ogre = new Ogre(i, k, 'O');
-					ogre.possibleClubPos(level.map);
+
+					ogre[ogreNumber] = new Ogre(i, k, 'O');
+					ogre[ogreNumber].possibleClubPos(level.map);
+					ogreNumber++;
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'k') {
+					
 					keyX = i;
 					keyY = k;
 				}
@@ -51,10 +62,14 @@ public class Game {
 			guard.moveSuspiciousGuard(level.map);
 			checkColisionGuard();
 		} else if (levNum == 2) {
-			ogre.moveOgre(level.map);
+
+			for (int j = 0; j < ogre.length; j++) {
+
+				ogre[j].moveOgre(level.map);
+			}
 			checkColisionOgreClub();
 		}
-		
+
 		checkColisionKey();
 	}
 
@@ -71,30 +86,22 @@ public class Game {
 		else if (hero.getX() == guard.getX() - 1 && hero.getY() == guard.getY())
 			gameOver = 1;
 	}
-	
+
 	public void checkColisionOgreClub() {
 
-		if (hero.getX() == ogre.getX() && hero.getY() == ogre.getY())
-			gameOver = 1;
-		else if (hero.getX() == ogre.getX() && hero.getY() == ogre.getY() + 1)
-			gameOver = 1;
-		else if (hero.getX() == ogre.getX() && hero.getY() == ogre.getY() - 1)
-			gameOver = 1;
-		else if (hero.getX() == ogre.getX() + 1 && hero.getY() == ogre.getY())
-			gameOver = 1;
-		else if (hero.getX() == ogre.getX() - 1 && hero.getY() == ogre.getY())
-			gameOver = 1;
-		
-		if (hero.getX() == ogre.clubX && hero.getY() == ogre.clubY)
-			gameOver = 1;
-		else if (hero.getX() == ogre.clubX && hero.getY() == ogre.clubY + 1)
-			gameOver = 1;
-		else if (hero.getX() == ogre.clubX && hero.getY() == ogre.clubY - 1)
-			gameOver = 1;
-		else if (hero.getX() == ogre.clubX + 1 && hero.getY() == ogre.clubY)
-			gameOver = 1;
-		else if (hero.getX() == ogre.clubX - 1 && hero.getY() == ogre.clubY)
-			gameOver = 1;
+		for (int j = 0; j < ogre.length; j++) {
+
+			if (hero.getX() == ogre[j].clubX && hero.getY() == ogre[j].clubY)
+				gameOver = 1;
+			else if (hero.getX() == ogre[j].clubX && hero.getY() == ogre[j].clubY + 1)
+				gameOver = 1;
+			else if (hero.getX() == ogre[j].clubX && hero.getY() == ogre[j].clubY - 1)
+				gameOver = 1;
+			else if (hero.getX() == ogre[j].clubX + 1 && hero.getY() == ogre[j].clubY)
+				gameOver = 1;
+			else if (hero.getX() == ogre[j].clubX - 1 && hero.getY() == ogre[j].clubY)
+				gameOver = 1;
+		}
 	}
 
 	public void changeDoorsBoolean() {
@@ -112,17 +119,19 @@ public class Game {
 				changeDoorsBoolean();
 				openDoors();
 			}
-		} else if (levNum==2){
-			if(hero.getX() == keyX && hero.getY() == keyY) {
+		} else if (levNum == 2) {
+			if (hero.getX() == keyX && hero.getY() == keyY) {
 				hero.setSymbol('K');
 				level.map[keyX][keyY] = ' ';
 			}
-			
-			if(ogre.getX() == keyX && ogre.getY() == keyY)
-				ogre.setSymbol('$');
-			else
-				ogre.setSymbol('O');
-		}	
+
+			for (int j = 0; j < ogre.length; j++) {
+				if (ogre[j].getX() == keyX && ogre[j].getY() == keyY)
+					ogre[j].setSymbol('$');
+				else
+					ogre[j].setSymbol('O');
+			}
+		}
 	}
 
 	public void openDoors() {
@@ -141,29 +150,38 @@ public class Game {
 			}
 		}
 	}
-	
+
 	public void printMap() {
+
 		for (int i = 0; i < level.map.length; i++) {
 			for (int k = 0; k < level.map[i].length; k++) {
 
-				if (hero.getX() == i && hero.getY() == k)
-					System.out.print(hero.getSymbol());
-				else if (ogre != null && ogre.getX() == i && ogre.getY() == k) {
-					System.out.print(ogre.getSymbol());
-				} else if (ogre != null && ogre.clubX == i && ogre.clubY == k) {
-					if (level.map[i][k] == 'k')
-						System.out.print('$');
-					else
-						System.out.print('*');
-				} else if (guard != null && guard.getX() == i && guard.getY() == k) {
-					System.out.print(guard.getSymbol());
-				} else {
-					System.out.print(level.map[i][k]);
+				boolean found = false;
+				for (int j = 0; j < ogre.length; j++) {
+
+					if (ogre[j] != null && ogre[j].getX() == i && ogre[j].getY() == k) {
+						System.out.print(ogre[j].getSymbol());
+						found = true;
+					} else if (!found && ogre[j] != null && ogre[j].clubX == i && ogre[j].clubY == k) {
+						if (level.map[i][k] == 'k')
+							System.out.print('$');
+						else
+							System.out.print('*');
+						found = true;
+					}
+				}
+				if (!found) {
+					if (hero.getX() == i && hero.getY() == k)
+						System.out.print(hero.getSymbol());
+					else if (guard != null && guard.getX() == i && guard.getY() == k) {
+						System.out.print(guard.getSymbol());
+					} else {
+						System.out.print(level.map[i][k]);
+					}
 				}
 			}
 			System.out.println();
 		}
-
 	}
 
 	public void changeLevel(int l) {
@@ -176,11 +194,11 @@ public class Game {
 		this.findSomething();
 
 	}
-	
+
 	public int getKeyX() {
 		return keyX;
 	}
-	
+
 	public int getKeyY() {
 		return keyY;
 	}
