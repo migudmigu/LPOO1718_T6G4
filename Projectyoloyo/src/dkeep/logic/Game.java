@@ -26,15 +26,15 @@ public class Game {
 			for (int k = 0; k < level.map[i].length; k++) {
 
 				if (level.map[i][k] == 'H') {
-					
+
 					hero = new Hero(i, k, 'H');
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'A') {
-					
+
 					hero = new Hero(i, k, 'A');
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'G') {
-					
+
 					guard = new SuspiciousGuard(i, k, 'G');
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'O') {
@@ -44,7 +44,7 @@ public class Game {
 					ogreNumber++;
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'k') {
-					
+
 					keyX = i;
 					keyY = k;
 				}
@@ -55,6 +55,7 @@ public class Game {
 	}
 
 	public void handler(char key) {
+
 		if (hero.moveHero(key, level.map))
 			changeLevel(2);
 
@@ -67,7 +68,7 @@ public class Game {
 
 				ogre[j].moveOgre(level.map);
 			}
-			checkColisionOgreClub();
+			checkColisionOgreHero();
 		}
 
 		checkColisionKey();
@@ -87,21 +88,39 @@ public class Game {
 			gameOver = 1;
 	}
 
-	public void checkColisionOgreClub() {
+	public void checkColisionOgreHero() {
 
 		for (int j = 0; j < ogre.length; j++) {
 
-			if (hero.getX() == ogre[j].clubX && hero.getY() == ogre[j].clubY)
+			if (hero.getX() == ogre[j].getX() && hero.getY() == ogre[j].getY()) // hero and ogre in the same position;
 				gameOver = 1;
-			else if (hero.getX() == ogre[j].clubX && hero.getY() == ogre[j].clubY + 1)
+			else if (checkColisionOgreClub(j)) // hero dies to the ogre club
 				gameOver = 1;
-			else if (hero.getX() == ogre[j].clubX && hero.getY() == ogre[j].clubY - 1)
-				gameOver = 1;
-			else if (hero.getX() == ogre[j].clubX + 1 && hero.getY() == ogre[j].clubY)
-				gameOver = 1;
-			else if (hero.getX() == ogre[j].clubX - 1 && hero.getY() == ogre[j].clubY)
-				gameOver = 1;
+			else if (hero.getX() == ogre[j].getX() && hero.getY() == ogre[j].getY() + 1) // hero stuns the ogre
+				ogre[j].stunOgre();
+			else if (hero.getX() == ogre[j].getX() && hero.getY() == ogre[j].getY() - 1) // hero stuns the ogre
+				ogre[j].stunOgre();
+			else if (hero.getX() == ogre[j].getX() + 1 && hero.getY() == ogre[j].getY()) // hero stuns the ogre
+				ogre[j].stunOgre();
+			else if (hero.getX() == ogre[j].getX() - 1 && hero.getY() == ogre[j].getY()) // hero stuns the ogre
+				ogre[j].stunOgre();
 		}
+	}
+
+	public boolean checkColisionOgreClub(int j) {
+
+		if (hero.getX() == ogre[j].getClubX() && hero.getY() == ogre[j].getClubY())
+			return true;
+		else if (hero.getX() == ogre[j].getClubX() && hero.getY() == ogre[j].getClubY() + 1)
+			return true;
+		else if (hero.getX() == ogre[j].getClubX() && hero.getY() == ogre[j].getClubY() - 1)
+			return true;
+		else if (hero.getX() == ogre[j].getClubX() + 1 && hero.getY() == ogre[j].getClubY())
+			return true;
+		else if (hero.getX() == ogre[j].getClubX() - 1 && hero.getY() == ogre[j].getClubY())
+			return true;
+		else
+			return false;
 	}
 
 	public void changeDoorsBoolean() {
@@ -160,7 +179,11 @@ public class Game {
 				for (int j = 0; j < ogre.length; j++) {
 
 					if (ogre[j] != null && ogre[j].getX() == i && ogre[j].getY() == k) {
-						System.out.print(ogre[j].getSymbol());
+						//System.out.print(ogre[j].getSymbol());
+						if(ogre[j].stunned == true)
+							System.out.print('8');
+						else
+							System.out.print('O');
 						found = true;
 					} else if (!found && ogre[j] != null && ogre[j].clubX == i && ogre[j].clubY == k) {
 						if (level.map[i][k] == 'k')
@@ -192,7 +215,6 @@ public class Game {
 		this.hero = null;
 		this.guard = null;
 		this.findSomething();
-
 	}
 
 	public int getKeyX() {
