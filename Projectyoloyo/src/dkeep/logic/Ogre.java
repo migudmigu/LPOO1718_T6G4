@@ -5,19 +5,43 @@ import java.util.Random;
 public class Ogre extends Character {
 
 	Random r;
+	protected boolean stunned;
+	protected int stunnedTurns;
+
 	char[] moves = { 'a', 's', 'd', 'w' };
 	int clubX;
 	int clubY;
 
 	public Ogre(int x, int y, char symbol) {
 		super(x, y, symbol);
-
+		stunned = false;
+		stunnedTurns = 0;
 	}
 
 	public void moveOgre(char[][] map) {
-		
-		moveCharacter(moves[randomNumber()], map);
+
+		if (!stunned)
+			moveCharacter(moves[randomNumber()], map);
+		else
+			increaseStunnedTurns();
+
 		possibleClubPos(map);
+	}
+
+	public void increaseStunnedTurns() {
+
+		stunnedTurns++;
+		if (stunnedTurns > 2) {
+
+			stunned = false;
+			stunnedTurns = 0;
+		}
+	}
+	
+	public void stunOgre() {
+		
+		stunned = true;
+		stunnedTurns = 0;
 	}
 
 	public void moveClub() {
@@ -46,7 +70,7 @@ public class Ogre extends Character {
 	public void possibleClubPos(char[][] map) {
 
 		moveClub();
-		
+
 		while (true) {
 
 			if (map[clubX][clubY] != 'X' && map[clubX][clubY] != 'I') {
@@ -60,5 +84,15 @@ public class Ogre extends Character {
 		r = new Random();
 		int i = r.nextInt(4);
 		return i;
+	}
+
+	public int getClubX() {
+
+		return clubX;
+	}
+
+	public int getClubY() {
+
+		return clubY;
 	}
 }
