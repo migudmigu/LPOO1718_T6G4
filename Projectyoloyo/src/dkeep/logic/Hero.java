@@ -1,55 +1,61 @@
 package dkeep.logic;
 
-import java.util.Random;
+public class Hero extends Character {
 
-public class Guard extends Character {
-
-	protected int pathStep = 0;
-	protected char[] guardpath = { 'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd',
-			'd', 'd', 'w', 'w', 'w', 'w', 'w' };
-	protected boolean asleep;
-	protected boolean reverse;
-	Random r;
-
-	public Guard(int x, int y, char symbol) {
+	public Hero(int x, int y, char symbol) {
 		super(x, y, symbol);
-		asleep = false;
-		reverse = false;
 	}
 
-	public void upPathSteps() {
-
-		if (pathStep == guardpath.length - 1)
-			pathStep = 0;
+	public boolean moveHero(char key, char[][] map) {
+		
+		if (checkDoorWithKey(map) == key)
+			openDoorWithKey(map);
 		else
-			pathStep++;
+			moveCharacter(key, map);
+		return checkLevelEnd(map);
 	}
-	
-	public void downPathSteps() {
 
-		if (pathStep == 0)
-			pathStep = guardpath.length - 1;
-		else
-			pathStep--;
+	public boolean checkLevelEnd(char[][] map) {
+
+		if (map[this.x][this.y] == 's') {
+			return true;
+		} else
+			return false;
 	}
-	
-	public void setReverse() {
 
-		if (reverse)
-			reverse = false;
-		else
-			reverse = true;
+	public char checkDoorWithKey(char[][] map) {
+
+		if (this.getSymbol() == 'K') {
+
+			if (map[this.getX() + 1][this.getY()] == 'I') {
+				return 's';
+			} else if (map[this.getX() - 1][this.getY()] == 'I') {
+				return 'w';
+			} else if (map[this.getX()][this.getY() + 1] == 'I') {
+				return 'd';
+			} else if (map[this.getX()][this.getY() - 1] == 'I') {
+				return 'a';
+			}
+
+		}
+		return 'n';
 	}
-	
-	public char inverseMovement(char mov) {
 
-		if (mov == 'a')
-			return 'd';
-		else if (mov == 'd')
-			return 'a';
-		else if (mov == 'w')
-			return 's';
-		else
-			return 'w';
-	}	
+	public void openDoorWithKey(char[][] map) {
+
+		if (this.getSymbol() == 'K') {
+
+			if (map[this.getX() + 1][this.getY()] == 'I') {
+				map[this.getX() + 1][this.getY()] = 's';
+			} else if (map[this.getX() - 1][this.getY()] == 'I') {
+				map[this.getX() - 1][this.getY()] = 's';
+			} else if (map[this.getX()][this.getY() + 1] == 'I') {
+				map[this.getX()][this.getY() + 1] = 's';
+			} else if (map[this.getX()][this.getY() - 1] == 'I') {
+				map[this.getX()][this.getY() - 1] = 's';
+			}
+
+		}
+	}
+
 }
