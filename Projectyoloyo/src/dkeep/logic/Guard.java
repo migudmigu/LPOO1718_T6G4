@@ -52,4 +52,12 @@ public class Guard extends Character {
 		else
 			return 'w';
 	}	
+	
+	public void moveGuard(char[][] map) {
+		if(this instanceof DrunkenGuard)
+		((DrunkenGuard)this).moveDrunkenGuard(map);
+		else if(this instanceof SuspiciousGuard)
+			((SuspiciousGuard)this).moveSuspiciousGuard(map);
+		else ((RookieGuard)this).moveRookieGuard(map);
+	}
 }

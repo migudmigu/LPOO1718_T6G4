@@ -7,13 +7,12 @@ public class Game {
 	public int keyX = 0, keyY = 0;
 	public boolean doorsOpened = false;
 	Hero hero;
-	SuspiciousGuard guard;
+	Guard guard;
 	Ogre[] ogre = new Ogre[3];;
 
 	Level level = new Level(1);
 
 	public Game() {
-
 		this.findSomething();
 	}
 
@@ -34,8 +33,7 @@ public class Game {
 					hero = new Hero(i, k, 'A');
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'G') {
-
-					guard = new SuspiciousGuard(i, k, 'G');
+					guard = new Guard(i, k, 'G');
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'O') {
 
@@ -53,6 +51,15 @@ public class Game {
 
 		printMap();
 	}
+	
+	public void setGuard(String personality) {
+		if(personality == "Drunken") {
+			guard = new DrunkenGuard(guard.getX(), guard.getY(), 'G');
+		} else if (personality == "Suspicious") {
+			guard = new SuspiciousGuard(guard.getX(), guard.getY(), 'G');
+		} else 
+			guard = new RookieGuard(guard.getX(), guard.getY(), 'G');
+	}
 
 	public void handler(char key) {
 
@@ -60,7 +67,7 @@ public class Game {
 			changeLevel(2);
 
 		if (levNum == 1) {
-			guard.moveSuspiciousGuard(level.map);
+			guard.moveGuard(level.map);
 			checkColisionGuard();
 		} else if (levNum == 2) {
 
@@ -207,6 +214,46 @@ public class Game {
 		}
 	}
 
+	public String getMapa() {
+		String mapaString = "";
+		for (int i = 0; i < level.map.length; i++) {
+			
+			for (int k = 0; k < level.map[i].length; k++) {
+
+				boolean found = false;
+				for (int j = 0; j < ogre.length; j++) {
+
+					if (ogre[j] != null && ogre[j].getX() == i && ogre[j].getY() == k) {
+						//System.out.print(ogre[j].getSymbol());
+						if(ogre[j].stunned == true)
+							mapaString += '8';
+						else
+							mapaString += 'O';
+						found = true;
+					} else if (!found && ogre[j] != null && ogre[j].clubX == i && ogre[j].clubY == k) {
+						if (level.map[i][k] == 'k')
+							mapaString += '$';
+						else
+							mapaString += '*';
+						found = true;
+					}
+				}
+				if (!found) {
+					if (hero.getX() == i && hero.getY() == k)
+						mapaString += hero.getSymbol();
+					else if (guard != null && guard.getX() == i && guard.getY() == k) {
+						mapaString += guard.getSymbol();
+					} else {
+						mapaString += level.map[i][k];
+					}
+				}
+			}
+			mapaString += '\n';
+		}
+		
+		return mapaString;
+	}
+	
 	public void changeLevel(int l) {
 
 		levNum = l;
