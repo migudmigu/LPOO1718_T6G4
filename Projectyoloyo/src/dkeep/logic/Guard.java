@@ -3,7 +3,6 @@ package dkeep.logic;
 import java.util.Random;
 
 public class Guard extends Character {
-
 	protected int pathStep = 0;
 	protected char[] guardpath = { 'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd',
 			'd', 'd', 'w', 'w', 'w', 'w', 'w' };

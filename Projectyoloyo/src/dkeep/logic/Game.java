@@ -96,7 +96,6 @@ public class Game {
 	}
 
 	public void checkColisionOgreHero() {
-
 		for (int j = 0; j < ogre.length; j++) {
 
 			if (hero.getX() == ogre[j].getX() && hero.getY() == ogre[j].getY()) // hero and ogre in the same position;

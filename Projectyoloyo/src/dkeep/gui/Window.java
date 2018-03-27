@@ -21,7 +21,6 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 
 public class Window {
-
 	private JFrame JanelaMenu;
 	private JTextField textField;
 	private JTextField textField_1;
