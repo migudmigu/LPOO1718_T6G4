@@ -14,21 +14,24 @@ import javax.swing.JTextField;
 import dkeep.logic.Game;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Graphics;
 
 public class Window {
 	private JFrame JanelaMenu;
+	private JPanel gamepanel;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JButton btnUp;
 	private JButton btnRight;
 	private JButton btnLeft;
 	private JButton btnDown;
-	JTextArea textArea;
+//	JTextArea textArea;
 	private Game game;
 
 	/**
@@ -63,20 +66,28 @@ public class Window {
 		JanelaMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JanelaMenu.getContentPane().setLayout(null);
 		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		gamepanel = new GamePanel();
+		gamepanel.setBounds(12, 93, 346, 326);
+		JanelaMenu.getContentPane().add(gamepanel);
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
 		lblNumberOfOgres.setBounds(12, 13, 106, 16);
 		JanelaMenu.getContentPane().add(lblNumberOfOgres);
 
-		textField = new JTextField();
-		textField.setBounds(130, 10, 37, 22);
-		JanelaMenu.getContentPane().add(textField);
-		textField.setColumns(10);
+//		textField = new JTextField();
+//		textField.setBounds(130, 10, 37, 22);
+//		JanelaMenu.getContentPane().add(textField);
+//		textField.setColumns(10);
 
-		textArea = new JTextArea();
-		textArea.setFont(new Font("DialogInput", Font.PLAIN, 12));
-		textArea.setEditable(false);
-		textArea.setBounds(40, 104, 322, 278);
-		JanelaMenu.getContentPane().add(textArea);
+//		textArea = new JTextArea();
+//		textArea.setFont(new Font("DialogInput", Font.PLAIN, 12));
+//		textArea.setEditable(false);
+//		textArea.setBounds(40, 104, 322, 278);
+//		JanelaMenu.getContentPane().add(textArea);
 		
 		JLabel lblGuardPersonality = new JLabel("Guard personality");
 		lblGuardPersonality.setBounds(12, 48, 106, 16);
@@ -90,8 +101,9 @@ public class Window {
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game = new Game();
+				((GamePanel)gamepanel).setGame(game);
 				game.setGuard(comboBox.getSelectedItem().toString());
-				textArea.setText(game.getMapa());
+				gamepanel.repaint();
 			}
 		});
 		btnNewGame.setBounds(406, 72, 117, 25);
@@ -110,6 +122,7 @@ public class Window {
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				checkButtons('w');
+				gamepanel.requestFocus();
 			}
 		});
 		btnUp.setBounds(451, 138, 53, 25);
@@ -119,6 +132,7 @@ public class Window {
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				checkButtons('d');
+				gamepanel.requestFocus();
 			}
 		});
 		btnRight.setBounds(502, 175, 75, 25);
@@ -128,6 +142,7 @@ public class Window {
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				checkButtons('a');
+				gamepanel.requestFocus();
 			}
 		});
 		btnLeft.setBounds(374, 175, 75, 25);
@@ -137,10 +152,13 @@ public class Window {
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				checkButtons('s');
+				gamepanel.requestFocus();
 			}
 		});
 		btnDown.setBounds(437, 212, 86, 25);
 		JanelaMenu.getContentPane().add(btnDown);
+		
+
 		
 
 		comboBox.addItem("Rookie");
@@ -151,7 +169,8 @@ public class Window {
 	public void checkButtons(char key) {
 
 		game.handler(key);
-		textArea.setText(game.getMapa());
+		gamepanel.repaint();
+//		textArea.setText(game.getMapa());
 		if(game.gameOver == 1) {
 			btnLeft.setEnabled(false);
 			btnRight.setEnabled(false);
@@ -159,5 +178,4 @@ public class Window {
 			btnDown.setEnabled(false);
 		}
 	}
-	
 }

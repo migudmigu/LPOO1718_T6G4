@@ -8,11 +8,12 @@ public class Game {
 	public boolean doorsOpened = false;
 	Hero hero;
 	Guard guard;
-	Ogre[] ogre = new Ogre[3];;
+	Ogre[] ogre = new Ogre[3];
 
-	Level level = new Level(1);
+	Level level;
 
 	public Game() {
+		level = new Level(1);
 		this.findSomething();
 	}
 
@@ -42,7 +43,6 @@ public class Game {
 					ogreNumber++;
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'k') {
-
 					keyX = i;
 					keyY = k;
 				}
@@ -51,13 +51,13 @@ public class Game {
 
 		printMap();
 	}
-	
+
 	public void setGuard(String personality) {
-		if(personality == "Drunken") {
+		if (personality == "Drunken") {
 			guard = new DrunkenGuard(guard.getX(), guard.getY(), 'G');
 		} else if (personality == "Suspicious") {
 			guard = new SuspiciousGuard(guard.getX(), guard.getY(), 'G');
-		} else 
+		} else
 			guard = new RookieGuard(guard.getX(), guard.getY(), 'G');
 	}
 
@@ -185,8 +185,8 @@ public class Game {
 				for (int j = 0; j < ogre.length; j++) {
 
 					if (ogre[j] != null && ogre[j].getX() == i && ogre[j].getY() == k) {
-						//System.out.print(ogre[j].getSymbol());
-						if(ogre[j].stunned == true)
+						// System.out.print(ogre[j].getSymbol());
+						if (ogre[j].stunned == true)
 							System.out.print('8');
 						else
 							System.out.print('O');
@@ -213,18 +213,19 @@ public class Game {
 		}
 	}
 
+	// Function used in iteration 4
 	public String getMapa() {
 		String mapaString = "";
 		for (int i = 0; i < level.map.length; i++) {
-			
+
 			for (int k = 0; k < level.map[i].length; k++) {
 
 				boolean found = false;
 				for (int j = 0; j < ogre.length; j++) {
 
 					if (ogre[j] != null && ogre[j].getX() == i && ogre[j].getY() == k) {
-						//System.out.print(ogre[j].getSymbol());
-						if(ogre[j].stunned == true)
+						// System.out.print(ogre[j].getSymbol());
+						if (ogre[j].stunned == true)
 							mapaString += '8';
 						else
 							mapaString += 'O';
@@ -249,10 +250,14 @@ public class Game {
 			}
 			mapaString += '\n';
 		}
-		
+
 		return mapaString;
 	}
-	
+
+	public char[][] getMapArray() {
+		return this.level.map;
+	}
+
 	public void changeLevel(int l) {
 
 		levNum = l;
@@ -269,5 +274,13 @@ public class Game {
 
 	public int getKeyY() {
 		return keyY;
+	}
+
+	public Hero getHero() {
+		return hero;
+	}
+
+	public Guard getGuard() {
+		return guard;
 	}
 }
