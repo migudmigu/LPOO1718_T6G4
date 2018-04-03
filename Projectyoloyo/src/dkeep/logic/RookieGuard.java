@@ -9,7 +9,7 @@ public class RookieGuard extends Guard{
 	}
 
 	public void moveRookieGuard(char[][] map) {
-
+		updateDirection(guardpath[pathStep]);
 		moveCharacter(guardpath[pathStep], map);
 		upPathSteps();
 	}

@@ -44,6 +44,11 @@ public class MenuPanel extends JPanel {
 		add(btnExit);
 		
 		JButton btnNewMap = new JButton("New Map");
+		btnNewMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				statemachine.updateState(Action.CREATE_MAP_E);
+			}
+		});
 		btnNewMap.setBounds(183, 106, 99, 25);
 		add(btnNewMap);
 		add(btnNewGame);

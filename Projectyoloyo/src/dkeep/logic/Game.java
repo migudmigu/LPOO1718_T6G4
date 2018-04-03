@@ -4,10 +4,12 @@ public class Game {
 
 	public int gameOver = 0;
 	public int levNum = 1;
-	public int keyX = 0, keyY = 0;
 	public boolean doorsOpened = false;
+	Key key;
 	Hero hero;
 	Guard guard;
+	public Door[] doors = new Door[20];
+	int nmrDoors=0;
 	Ogre[] ogre = new Ogre[3];
 
 	Level level;
@@ -43,16 +45,18 @@ public class Game {
 					ogreNumber++;
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'k') {
-					keyX = i;
-					keyY = k;
+					key = new Key(i,k,'k');
+				} else if (level.map[i][k] == 'I') {
+					nmrDoors++;
+					doors[nmrDoors] = new Door(i,k,'I');
 				}
 			}
 		}
-
+		checkIfDoorsOpenable();
 		printMap();
 	}
 
-	public void setGuard(Object personality) {
+	public void setGuard(String personality) {
 		if (personality == "Drunken") {
 			guard = new DrunkenGuard(guard.getX(), guard.getY(), 'G');
 		} else if (personality == "Suspicious") {
@@ -129,7 +133,7 @@ public class Game {
 			return false;
 	}
 
-	public void changeDoorsBoolean() {
+	public void changeDoorsBoolean() {					//in new DOOR CLASS
 
 		if (doorsOpened)
 			doorsOpened = false;
@@ -140,18 +144,18 @@ public class Game {
 	public void checkColisionKey() {
 
 		if (levNum == 1) {
-			if (hero.getX() == keyX && hero.getY() == keyY) {
-				changeDoorsBoolean();
+			if (hero.getX() == key.getX() && hero.getY() == key.getY()) {
+				key.triggerKey();			// NECESSARIO?
 				openDoors();
 			}
 		} else if (levNum == 2) {
-			if (hero.getX() == keyX && hero.getY() == keyY) {
+			if (hero.getX() == key.getX() && hero.getY() == key.getY()) {
 				hero.setSymbol('K');
-				level.map[keyX][keyY] = ' ';
+				level.map[key.getX()][key.getY()] = ' ';
 			}
 
 			for (int j = 0; j < ogre.length; j++) {
-				if (ogre[j].getX() == keyX && ogre[j].getY() == keyY)
+				if (ogre[j].getX() == key.getX() && ogre[j].getY() == key.getY())
 					ogre[j].setSymbol('$');
 				else
 					ogre[j].setSymbol('O');
@@ -161,6 +165,15 @@ public class Game {
 
 	public void openDoors() {
 
+		for(int i = 0 ; i < 20 ; i++) {
+			if(doors[i]!=null) {
+				if(doors[i].openable) {
+					System.out.println("test3");
+					doors[i].openDoor();
+				}
+			}
+		}
+		
 		for (int i = 0; i < level.map.length; i++) {
 
 			for (int k = 0; k < level.map[i].length; k++) {
@@ -267,14 +280,24 @@ public class Game {
 		this.guard = null;
 		this.findSomething();
 	}
-
-	public int getKeyX() {
-		return keyX;
+	
+	public void checkIfDoorsOpenable() {
+		for(int i = 0 ; i < 20 ; i++) {
+			if(doors[i]!=null) {
+				System.out.println("tst5");
+				if(doors[i].getX()==0 || doors[i].getX()==this.level.map.length-1 || doors[i].getY()==0 || doors[i].getY()==this.level.map[0].length-1)
+					doors[i].setOpenable();
+			}
+		}
 	}
 
-	public int getKeyY() {
-		return keyY;
-	}
+//	public int getKeyX() {
+//		return keyX;
+//	}
+//
+//	public int getKeyY() {
+//		return keyY;
+//	}
 
 	public Hero getHero() {
 		return hero;
@@ -282,5 +305,9 @@ public class Game {
 
 	public Guard getGuard() {
 		return guard;
+	}
+	
+	public Key getKey() {
+		return key;
 	}
 }

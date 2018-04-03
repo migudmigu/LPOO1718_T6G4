@@ -25,7 +25,7 @@ public class SuspiciousGuard extends Guard {
 			downPathSteps();
 			moveCharacter(inverseMovement(guardpath[pathStep]), map);
 		} else {
-
+			updateDirection(guardpath[pathStep]);
 			moveCharacter(guardpath[pathStep], map);
 			upPathSteps();
 		}

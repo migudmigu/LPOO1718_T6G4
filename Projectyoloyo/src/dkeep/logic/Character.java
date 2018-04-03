@@ -6,7 +6,6 @@ public abstract class Character {
 	protected char symbol;
 
 	public Character(int x, int y, char symbol) {
-
 		this.x = x;
 		this.y = y;
 		this.symbol = symbol;

@@ -14,6 +14,12 @@ public class GameData {
 	String personality;
 	int numOgres;
 	BufferedImage hero;
+	BufferedImage wall;
+	BufferedImage floor;
+	BufferedImage VDoor;
+	BufferedImage HDoor;
+	BufferedImage guard;
+	BufferedImage lever;
 	
 	public GameData() throws IOException {
 		personality = "Rookie";					//		DEFAULT
@@ -39,15 +45,41 @@ public class GameData {
 	
 	public void loadImages() throws IOException {
 		this.hero = ImageIO.read(new File("Images/hero.png"));
+		this.floor = ImageIO.read(new File("Images/floor.jpg"));
+		this.wall = ImageIO.read(new File("Images/wall.png"));
+		this.VDoor = ImageIO.read(new File("Images/VerDoors.png"));
+		this.HDoor = ImageIO.read(new File("Images/HorDoors.png"));
+		this.guard = ImageIO.read(new File("Images/guardDown.png"));
+		this.lever = ImageIO.read(new File("Images/Lever.png"));
 	}
 	
+//	public void checkDoors() throws IOException {
+//		if(game.doorsOpened)
+//		this.VDoor = ImageIO.read(new File("Images/HorDoors.png"));
+//		else VDoor = ImageIO.read(new File("Images/VerDoors.png"));
+//	}
+	
 	public void setHeroDirection(char key) throws IOException {
-		System.out.print(key);
 		switch(key) {
 		case 'w':this.hero = ImageIO.read(new File("Images/hero.png"));break;
 		case 'a':this.hero = ImageIO.read(new File("Images/heroLeft.png")); break;
 		case 's':this.hero = ImageIO.read(new File("Images/heroDown.png")); break;
 		case 'd':this.hero = ImageIO.read(new File("Images/heroRight.png")); break;
 		}
+	}
+	
+	public void setGuardDirection(char key) throws IOException {
+		switch(key) {
+		case 'w':this.guard = ImageIO.read(new File("Images/guardUp.png"));break;
+		case 'a':this.guard = ImageIO.read(new File("Images/guardLeft.png")); break;
+		case 's':this.guard = ImageIO.read(new File("Images/guardDown.png")); break;
+		case 'd':this.guard = ImageIO.read(new File("Images/guardRight.png")); break;
+		}
+	}
+	
+	public void setLeverDirection() throws IOException {
+		if(game.getKey().getTriggered())
+		this.lever = ImageIO.read(new File("Images/Lever2.png"));
+		else this.lever = ImageIO.read(new File("Images/Lever.png"));
 	}
 }

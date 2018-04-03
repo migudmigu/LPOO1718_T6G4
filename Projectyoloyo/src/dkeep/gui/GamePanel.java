@@ -30,43 +30,66 @@ public class GamePanel extends JPanel implements KeyListener{
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // limpa fundo ...
-		paintBackground(g, Color.white);
+//		paintBackground(g, Color.white);
+		boolean doorflag = false;
+		
 		if (game != null) {
 			for (int i = 0; i < map.length; i++) {
 				for (int j = 0; j < map[i].length; j++) {
 					if (map[j][i] == 'X') {
-						g.setColor(Color.black);
-						g.fillRect(i * 30, j * 30, 30, 30);
+						g.drawImage(gamedata.wall, i * 30, j * 30, 30, 30, this);
 						continue;
 					}
-					if (map[j][i] == 'I') {
-						g.setColor(Color.yellow);
-						g.fillRect(i * 30, j * 30, 30, 30);
-						continue;
+
+					for (int k = 0; k < 20; k++) {
+						if (game.doors[k] != null) {
+							if (j == game.doors[k].getX() && i == game.doors[k].getY()) {
+								g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
+								if (game.doors[k].getOpened()) {
+									g.drawImage(gamedata.HDoor, i * 30, j * 30, 30, 30, this);
+								} else {
+									System.out.println(game.doors[k].getOpened() + "coco");
+									g.drawImage(gamedata.VDoor, i * 30, j * 30, 30, 30, this);
+								}
+							
+								doorflag=true;
+							}
+						}
 					}
-					if (j == game.getKeyX() && i == game.getKeyY()) {
-						g.setColor(Color.green);
-						g.fillRect(i * 30, j * 30, 30, 30);
+//					if (map[j][i] == 'I') {
+//						try {
+//							gamedata.checkDoors();
+//						} catch (IOException e) {
+//							e.printStackTrace();
+//						}
+//						g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
+//						g.drawImage(gamedata.VDoor,i * 30, j * 30, 30, 30, this);
+//						continue;
+//					}
+					if (j == game.getKey().getX() && i == game.getKey().getY()) {
+						g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
+						g.drawImage(gamedata.lever,i * 30, j * 30, 30, 30, this);
 						if (j == game.getHero().getX() && i == game.getHero().getY()) {
 							g.drawImage(gamedata.hero,i * 30, j * 30, 30, 30, this);
 						}
 						continue;
 					}
 					if (j == game.getHero().getX() && i == game.getHero().getY()) {
-						g.setColor(Color.cyan);
-						g.fillRect(i * 30, j * 30, 30, 30);
+						g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
 						g.drawImage(gamedata.hero,i * 30, j * 30, 30, 30, this);
 						continue;
 					}
 					if (game.getGuard() != null) {
 						if (j == game.getGuard().getX() && i == game.getGuard().getY()) {
-							g.setColor(Color.blue);
-							g.fillRect(i * 30, j * 30, 30, 30);
+							g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
+							g.drawImage(gamedata.guard,i * 30, j * 30, 30, 30, this);
 							continue;
 						}
 					}
-					g.setColor(Color.cyan);
-					g.fillRect(i * 30, j * 30, 30, 30);
+					if(!doorflag) {
+					g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
+					}
+					doorflag=false;
 				}
 			}
 		}
@@ -129,6 +152,8 @@ public class GamePanel extends JPanel implements KeyListener{
 
 		game.handler(key);
 		gamedata.setHeroDirection(key);
+		gamedata.setGuardDirection(game.getGuard().getDirection());
+		gamedata.setLeverDirection();
 		repaint();
 		
 	}

@@ -32,6 +32,7 @@ public class Window {
 	private JFrame JanelaMenu;
 	private JPanel gamepanel;
 	private JPanel menupanel;
+	private JPanel mappanel;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JButton btnUp;
@@ -95,7 +96,14 @@ public class Window {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		statemachine.setStates(gamepanel, menupanel);
+
+		mappanel = new MapPanel(statemachine,gamedata);
+		mappanel.setBounds(12, 30, 588, 389);
+		JanelaMenu.getContentPane().add(mappanel);
+		mappanel.setVisible(true);
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		statemachine.setStates(gamepanel, menupanel,mappanel);
 		
 //		textArea = new JTextArea();
 //		textArea.setFont(new Font("DialogInput", Font.PLAIN, 12));

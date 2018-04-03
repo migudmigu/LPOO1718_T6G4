@@ -8,6 +8,7 @@ public class Guard extends Character {
 			'd', 'd', 'w', 'w', 'w', 'w', 'w' };
 	protected boolean asleep;
 	protected boolean reverse;
+	protected char direction;
 	Random r;
 
 	public Guard(int x, int y, char symbol) {
@@ -42,14 +43,22 @@ public class Guard extends Character {
 	
 	public char inverseMovement(char mov) {
 
-		if (mov == 'a')
+		if (mov == 'a') {
+			updateDirection('d');
 			return 'd';
-		else if (mov == 'd')
+		}
+		else if (mov == 'd') {
+			updateDirection('a');
 			return 'a';
-		else if (mov == 'w')
+		}
+		else if (mov == 'w') {
+			updateDirection('s');
 			return 's';
-		else
+		}
+		else {
+			updateDirection('w');
 			return 'w';
+		}
 	}	
 	
 	public void moveGuard(char[][] map) {
@@ -58,5 +67,13 @@ public class Guard extends Character {
 		else if(this instanceof SuspiciousGuard)
 			((SuspiciousGuard)this).moveSuspiciousGuard(map);
 		else ((RookieGuard)this).moveRookieGuard(map);
+	}
+	
+	public void updateDirection(char c) {
+		this.direction = c;
+	}
+	
+	public char getDirection() {
+		return this.direction;
 	}
 }
