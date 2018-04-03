@@ -52,7 +52,7 @@ public class Game {
 		printMap();
 	}
 
-	public void setGuard(String personality) {
+	public void setGuard(Object personality) {
 		if (personality == "Drunken") {
 			guard = new DrunkenGuard(guard.getX(), guard.getY(), 'G');
 		} else if (personality == "Suspicious") {

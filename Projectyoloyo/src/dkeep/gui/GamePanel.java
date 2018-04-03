@@ -4,19 +4,27 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import dkeep.logic.Game;
 
 public class GamePanel extends JPanel implements KeyListener{
+	GameData gamedata;
 	Game game;
 	char[][] map;
+	private JTextField textField;
 
-	public GamePanel() {
-		this.game = null;
-		this.map = null;
+	public GamePanel(GameData gamedata) {
+		this.gamedata=gamedata;
+//		this.game = null;
+//		this.map = null;
 		addKeyListener(this);
+		setLayout(null);
 	}
 
 	@Override
@@ -26,45 +34,42 @@ public class GamePanel extends JPanel implements KeyListener{
 		if (game != null) {
 			for (int i = 0; i < map.length; i++) {
 				for (int j = 0; j < map[i].length; j++) {
-
 					if (map[j][i] == 'X') {
 						g.setColor(Color.black);
-						g.fillRect(i * 30, j * 30, 30 + i * 30, 30 + j * 30);
+						g.fillRect(i * 30, j * 30, 30, 30);
 						continue;
 					}
 					if (map[j][i] == 'I') {
 						g.setColor(Color.yellow);
-						g.fillRect(i * 30, j * 30, 30 + i * 30, 30 + j * 30);
+						g.fillRect(i * 30, j * 30, 30, 30);
 						continue;
 					}
 					if (j == game.getKeyX() && i == game.getKeyY()) {
 						g.setColor(Color.green);
-						g.fillRect(i * 30, j * 30, 30 + i * 30, 30 + j * 30);
+						g.fillRect(i * 30, j * 30, 30, 30);
+						if (j == game.getHero().getX() && i == game.getHero().getY()) {
+							g.drawImage(gamedata.hero,i * 30, j * 30, 30, 30, this);
+						}
 						continue;
 					}
 					if (j == game.getHero().getX() && i == game.getHero().getY()) {
-						g.setColor(Color.red);
-						g.fillRect(i * 30, j * 30, 30 + i * 30, 30 + j * 30);
+						g.setColor(Color.cyan);
+						g.fillRect(i * 30, j * 30, 30, 30);
+						g.drawImage(gamedata.hero,i * 30, j * 30, 30, 30, this);
 						continue;
 					}
 					if (game.getGuard() != null) {
 						if (j == game.getGuard().getX() && i == game.getGuard().getY()) {
 							g.setColor(Color.blue);
-							g.fillRect(i * 30, j * 30, 30 + i * 30, 30 + j * 30);
+							g.fillRect(i * 30, j * 30, 30, 30);
 							continue;
 						}
 					}
-					g.setColor(Color.white);
-					g.fillRect(i * 30, j * 30, 30 + i * 30, 30 + j * 30);
+					g.setColor(Color.cyan);
+					g.fillRect(i * 30, j * 30, 30, 30);
 				}
 			}
 		}
-	}
-
-	public void setGame(Game game) {
-		this.game= game;
-		this.map = game.getMapArray();
-		requestFocusInWindow();
 	}
 	
 	public void paintBackground(Graphics g,Color c) {
@@ -77,16 +82,32 @@ public class GamePanel extends JPanel implements KeyListener{
 		if (game.gameOver != 1) {
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
-				checkButtons('a');
+				try {
+					checkButtons('a');
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				break;
 			case KeyEvent.VK_RIGHT:
-				checkButtons('d');
+				try {
+					checkButtons('d');
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				break;
 			case KeyEvent.VK_UP:
-				checkButtons('w');
+				try {
+					checkButtons('w');
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				break;
 			case KeyEvent.VK_DOWN:
-				checkButtons('s');
+				try {
+					checkButtons('s');
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				break;
 			case KeyEvent.VK_ESCAPE:
 				System.exit(0);
@@ -97,24 +118,26 @@ public class GamePanel extends JPanel implements KeyListener{
 			System.exit(0);
 	}
 	
-	public void checkButtons(char key) {
+	public void setGame() {
+		game = gamedata.game;
+		this.map = gamedata.game.getMapArray();
+//		game.setGuard(comboBox.getSelectedItem().toString()); 
+		repaint();
+	}
+	
+	public void checkButtons(char key) throws IOException {
 
 		game.handler(key);
+		gamedata.setHeroDirection(key);
 		repaint();
 		
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyReleased(KeyEvent e) {}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 	
 	public void requestFocus() {
 		this.requestFocusInWindow();
