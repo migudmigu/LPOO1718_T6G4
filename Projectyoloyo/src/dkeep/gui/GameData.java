@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import dkeep.logic.Game;
+import dkeep.logic.Level;
 
 public class GameData {
 	
@@ -20,18 +21,19 @@ public class GameData {
 	BufferedImage HDoor;
 	BufferedImage guard;
 	BufferedImage lever;
+	Level[] levels;
+	int lvlcount = 2;
 	
 	public GameData() throws IOException {
 		personality = "Rookie";					//		DEFAULT
 		numOgres = 1;
 		loadImages();
+		this.levels = new Level[10];
 	}
 
 	public void savePersonality(String personality) {
 		this.personality = personality;
 	}
-	
-	
 	
 	public void updateGame(char key) {
 		game.handler(key);
@@ -39,6 +41,7 @@ public class GameData {
 	
 	public void startGame() {
 		this.game= new Game();
+		this.levels=game.getLevels();
 		game.setGuard(personality);
 //		game.setOgres(numOgres);
 	}
@@ -51,6 +54,15 @@ public class GameData {
 		this.HDoor = ImageIO.read(new File("Images/HorDoors.png"));
 		this.guard = ImageIO.read(new File("Images/guardDown.png"));
 		this.lever = ImageIO.read(new File("Images/Lever.png"));
+	}
+	
+	public void addLevel(Level level) {
+		this.levels[lvlcount]=level;
+		this.lvlcount++;
+	}
+	
+	public int getLevelCount() {
+		return this.lvlcount;
 	}
 	
 //	public void checkDoors() throws IOException {

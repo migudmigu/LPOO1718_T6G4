@@ -15,6 +15,14 @@ public class Level {
 		}
 	}
 	
+	public Level(char[][] map) {
+		for (int i = 0; i < map.length; i++)
+			this.map[i] = map[i].clone();
+	}
+	
+	public Level() {
+	}
+
 	protected char map[][];
 	protected char map1[][] = {
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
@@ -39,9 +47,16 @@ public class Level {
 			{ 'X', 'A', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, 
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 	
+	public void setCell(int x, int y, char symbol) {
+		map[x][y] = symbol;
+	}
+	
 	public void eraseCell(int x, int y) {
-		
 		map[x][y] = ' ';
+	}
+	
+	public char[][] getMap() {
+		return map;
 	}
 	
 }

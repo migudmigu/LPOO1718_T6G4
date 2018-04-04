@@ -29,12 +29,14 @@ public class StateMachine {
 			menupanel.setFocusable(false);
 			gamepanel.setVisible(true);
 			gamepanel.requestFocus();
+			break;
 		case CREATE_MAP_E:
 			this.state=State.CREATE_MAP;
 			menupanel.setVisible(false);
 			menupanel.setFocusable(false);
 			mappanel.setVisible(true);
 			mappanel.requestFocus();
+			break;
 		}
 	}
 

@@ -11,11 +11,15 @@ public class Game {
 	public Door[] doors = new Door[20];
 	int nmrDoors=0;
 	Ogre[] ogre = new Ogre[3];
-
+	Level[] levels = new Level[10];
+	int lvlcount = 0;
 	Level level;
 
 	public Game() {
 		level = new Level(1);
+		addLevel(level.getMap());
+		level = new Level(2);
+		addLevel(level.getMap());
 		this.findSomething();
 	}
 
@@ -291,6 +295,19 @@ public class Game {
 		}
 	}
 
+	public void addLevel(char[][] map) {
+		levels[lvlcount] = new Level(map);
+		lvlcount++;
+	}
+	
+	public Level[] getLevels(){
+		return levels;
+	}
+	
+	public int getLevelcount() {
+		return this.lvlcount;
+	}
+	
 //	public int getKeyX() {
 //		return keyX;
 //	}

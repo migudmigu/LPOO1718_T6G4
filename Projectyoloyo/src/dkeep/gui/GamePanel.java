@@ -29,6 +29,7 @@ public class GamePanel extends JPanel implements KeyListener{
 
 	@Override
 	public void paintComponent(Graphics g) {
+
 		super.paintComponent(g); // limpa fundo ...
 //		paintBackground(g, Color.white);
 		boolean doorflag = false;
@@ -102,6 +103,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
+		System.out.println("ergrg");
 		if (game.gameOver != 1) {
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
@@ -149,13 +151,11 @@ public class GamePanel extends JPanel implements KeyListener{
 	}
 	
 	public void checkButtons(char key) throws IOException {
-
 		game.handler(key);
 		gamedata.setHeroDirection(key);
 		gamedata.setGuardDirection(game.getGuard().getDirection());
 		gamedata.setLeverDirection();
 		repaint();
-		
 	}
 
 	@Override

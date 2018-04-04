@@ -81,6 +81,13 @@ public class Window {
 		JanelaMenu.getContentPane().setLayout(null);
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		gamepanel = new GamePanel(gamedata);
+		gamepanel.setBounds(12, 108, 344, 330);
+		JanelaMenu.getContentPane().add(gamepanel);
+		gamepanel.setVisible(false);
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		menupanel = new MenuPanel(statemachine,gamedata);
 		menupanel.setBounds(12, 30, 588, 389);
@@ -88,21 +95,13 @@ public class Window {
 		menupanel.setVisible(true);
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		gamepanel = new GamePanel(gamedata);
-		gamepanel.setBounds(12, 93, 300, 300);			// 				Deve depender do tamanha do mapa...?
-		JanelaMenu.getContentPane().add(gamepanel);
-		gamepanel.setVisible(false);
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-
 		mappanel = new MapPanel(statemachine,gamedata);
 		mappanel.setBounds(12, 30, 588, 389);
 		JanelaMenu.getContentPane().add(mappanel);
-		mappanel.setVisible(true);
+		mappanel.setVisible(false);
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		statemachine.setStates(gamepanel, menupanel,mappanel);
 		
 //		textArea = new JTextArea();
