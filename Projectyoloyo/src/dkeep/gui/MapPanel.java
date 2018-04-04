@@ -72,6 +72,14 @@ public class MapPanel extends JPanel {
 		comboBox.addItem(1);
 		comboBox.addItem(2);
 		
+		comboBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		    	level=gamedata.levels[comboBox.getSelectedIndex()];
+		    	if(level==null)
+		    		System.out.println("2coo");
+		    }
+		});
+		
 		JLabel lblLevel = new JLabel("Level:");
 		lblLevel.setBounds(318, 37, 70, 15);
 		add(lblLevel);
@@ -89,17 +97,12 @@ public class MapPanel extends JPanel {
 		JButton btnDone = new JButton("Done");
 		btnDone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gamedata.game.addLevel(level.getMap());
+				gamedata.game.addLevel(level);
 			}
 		});
 		btnDone.setBounds(355, 296, 82, 25);
 		add(btnDone);
-		
-		comboBox.addActionListener (new ActionListener () {
-		    public void actionPerformed(ActionEvent e) {
-		    	level=gamedata.levels[comboBox.getSelectedIndex()];
-		    }
-		});
+
 		
 	}
 
@@ -131,11 +134,11 @@ public class MapPanel extends JPanel {
 		
 		if (level != null) {
 			System.out.println("test");
-			
 			for (int i = 0; i < level.getMap().length; i++) {
 				for (int j = 0; j < level.getMap()[i].length; j++) {
 					if (level.getMap()[j][i] == 'X') {
-						g.drawImage(gamedata.wall, i * 30, j * 30, 30, 30, this);
+						System.out.println("202020");
+						g.fillRect(100, 100, 200, 350);
 						continue;
 					}
 

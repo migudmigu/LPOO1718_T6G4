@@ -29,6 +29,7 @@ public class GameData {
 		numOgres = 1;
 		loadImages();
 		this.levels = new Level[10];
+		addInLevels();
 	}
 
 	public void savePersonality(String personality) {
@@ -93,5 +94,11 @@ public class GameData {
 		if(game.getKey().getTriggered())
 		this.lever = ImageIO.read(new File("Images/Lever2.png"));
 		else this.lever = ImageIO.read(new File("Images/Lever.png"));
+	}
+	
+	public void addInLevels() {
+		Game jogo = new Game();
+		levels[0]=jogo.getLevels()[0];
+		levels[1]=jogo.getLevels()[1];
 	}
 }
