@@ -31,6 +31,7 @@ public class MenuPanel extends JPanel {
 				((GamePanel)statemachine.getGamePanel()).setGame();
 			}
 		});
+		
 
 		JButton btnExit = new JButton("EXIT");
 		btnExit.setBounds(189, 211, 63, 25);
