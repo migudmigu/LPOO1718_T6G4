@@ -88,10 +88,10 @@ public class Game {
 			guard.moveGuard(level.map);
 			checkColisionGuard();
 		} else if (currentlvli == 2) {
-
+			System.out.println("ama" + ogre.length);
 			for (int j = 0; j < ogre.length; j++) {
 				if(ogre[j]!=null) {
-				System.out.println(ogre.length);
+					System.out.println("ama" + ogre.length);
 				ogre[j].moveOgre(level.map);
 				}
 			}
@@ -244,7 +244,7 @@ public class Game {
 			System.out.println();
 		}
 	}
-
+	
 	// Function used in iteration 4
 	public String getMapa() {
 		String mapaString = "";

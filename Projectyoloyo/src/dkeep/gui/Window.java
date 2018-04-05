@@ -82,8 +82,8 @@ public class Window {
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		gamepanel = new GamePanel(gamedata);
-		gamepanel.setBounds(12, 108, 344, 330);
+		gamepanel = new GamePanel(gamedata,statemachine);
+		gamepanel.setBounds(12, 108, 426, 330);
 		JanelaMenu.getContentPane().add(gamepanel);
 		gamepanel.setVisible(false);
 		

@@ -11,7 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import dkeep.gui.StateMachine.Action;
 import dkeep.logic.Game;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GamePanel extends JPanel implements KeyListener{
 	GameData gamedata;
@@ -19,12 +23,22 @@ public class GamePanel extends JPanel implements KeyListener{
 	char[][] map;
 	private JTextField textField;
 
-	public GamePanel(GameData gamedata) {
+	public GamePanel(GameData gamedata, StateMachine statemachine) {
 		this.gamedata=gamedata;
 //		this.game = null;
 //		this.map = null;
 		addKeyListener(this);
 		setLayout(null);
+		
+		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				statemachine.updateState(Action.EXIT_GAME);
+			}
+		});
+		btnExit.setBounds(308, 259, 59, 25);
+		add(btnExit);
 	}
 
 	@Override
@@ -157,7 +171,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	
 	public void setGame() {
 		game = gamedata.game;
-		this.map = gamedata.game.getMapArray();
+//		this.map = gamedata.game.getMapArray();
 //		game.setGuard(comboBox.getSelectedItem().toString());
 		repaint();
 	}

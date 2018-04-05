@@ -14,7 +14,7 @@ public class StateMachine {
 	}
 
 	public enum Action {
-		NEW_GAME, CREATE_MAP_E, GAME_OVER,  CLOSE_CUSTOM
+		NEW_GAME, CREATE_MAP_E, GAME_OVER,  CLOSE_CUSTOM, EXIT_GAME
 	}
 
 	public StateMachine() { // POR OS STATES NUMA FUNÇAO SETSTATES se nao n da
@@ -40,6 +40,13 @@ public class StateMachine {
 		case CLOSE_CUSTOM:
 			this.state=State.MENU;
 			mappanel.setVisible(false);
+			menupanel.setVisible(true);
+			menupanel.setFocusable(true);
+			menupanel.requestFocus();
+			break;
+		case EXIT_GAME:
+			this.state=State.MENU;
+			gamepanel.setVisible(false);
 			menupanel.setVisible(true);
 			menupanel.setFocusable(true);
 			menupanel.requestFocus();

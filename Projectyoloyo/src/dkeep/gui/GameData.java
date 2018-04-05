@@ -48,9 +48,9 @@ public class GameData {
 	
 	public void startGame() {
 		this.game= new Game();
+		this.game.loadLevels(levels);
 		game.setGuard(personality);
 		game.setOgres(numOgres);
-		this.game.loadLevels(levels);
 	}
 	
 	public void loadImages() throws IOException {
