@@ -21,9 +21,9 @@ public class Game {
 
 	public Game() {
 		level = new Level(1);
-		addLevel(level.getMap());
+		addLevel(level);
 		level = new Level(2);
-		addLevel(level.getMap());
+		addLevel(level);
 		changeLevel(currentlvli);
 		this.findSomething();
 	}
@@ -309,8 +309,8 @@ public class Game {
 		}
 	}
 
-	public void addLevel(char[][] map) {
-		levels[lvlcount] = new Level(map);
+	public void addLevel(Level level) {
+		levels[lvlcount] = level;
 		lvlcount++;
 	}
 	
