@@ -70,6 +70,7 @@ public class GameData {
 		this.key = ImageIO.read(new File("Images/key.png"));
 	}
 	
+	
 	public void addLevel(Level level) {
 		this.levels[lvlcount]=level;
 		this.lvlcount++;
