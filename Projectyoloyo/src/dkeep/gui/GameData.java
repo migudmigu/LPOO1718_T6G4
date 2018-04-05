@@ -22,6 +22,9 @@ public class GameData {
 	BufferedImage guard;
 	BufferedImage lever;
 	BufferedImage ogre;
+	BufferedImage ogrestunned;
+	BufferedImage club;
+	BufferedImage key;
 	public Level[] levels;
 	int lvlcount = 0;
 	
@@ -62,6 +65,9 @@ public class GameData {
 		this.guard = ImageIO.read(new File("Images/guardDown.png"));
 		this.lever = ImageIO.read(new File("Images/Lever.png"));
 		this.ogre = ImageIO.read(new File("Images/Ogre.png"));
+		this.ogrestunned = ImageIO.read(new File("Images/OgreStunned.png"));
+		this.club = ImageIO.read(new File("Images/Sawblade.png"));
+		this.key = ImageIO.read(new File("Images/key.png"));
 	}
 	
 	public void addLevel(Level level) {
@@ -87,6 +93,15 @@ public class GameData {
 		case 'd':this.hero = ImageIO.read(new File("Images/heroRight.png")); break;
 		}
 	}
+	
+//	public void setOgreStun() throws IOException {
+//		for(int i = 0 ; i < game.getOgres().length ; i++) {
+//			if(game.getOgres()[i] != null && game.getOgres()[i].getStunned()) 
+//				this.ogre = ImageIO.read(new File("Images/OgreStunned.png"));
+//			else 	this.ogre = ImageIO.read(new File("Images/Ogre.png"));
+//
+//		}
+//	}
 	
 	public void setGuardDirection(char key) throws IOException {
 		if (guard != null) {

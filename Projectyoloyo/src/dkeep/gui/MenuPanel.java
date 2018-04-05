@@ -28,10 +28,10 @@ public class MenuPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				statemachine.updateState(Action.NEW_GAME);
 				gamedata.startGame();
-				((GamePanel)statemachine.getGamePanel()).setGame();
+//				((GamePanel)statemachine.getGamePanel()).setGame();
 			}
 		});
-		
+		btnNewGame.setEnabled(false);
 
 		JButton btnExit = new JButton("EXIT");
 		btnExit.setBounds(189, 211, 63, 25);
@@ -56,7 +56,9 @@ public class MenuPanel extends JPanel {
 		JButton btnSettings = new JButton("Settings");
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnNewGame.setEnabled(true);
 				settingsdialog.setVisible(true);
+				
 			}
 		});
 		btnSettings.setBounds(173, 160, 117, 25);

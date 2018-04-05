@@ -179,7 +179,6 @@ public class MapPanel extends JPanel implements MouseListener{
 		});
 		
 //		level = gamedata.levels[0];
-		System.out.println(gamedata.levels[0].getMap()[1][1]);
 //		this.repaint();
 	}
 
@@ -211,26 +210,25 @@ public class MapPanel extends JPanel implements MouseListener{
 
 	public void paintLevel(Graphics g, Level level) {
 
-		System.out.println("test2");
 		
 		boolean doorflag = false;
 		
 		if (level != null) {
-			System.out.println("test");
 			if(level.getMap() != null)
-				System.out.println("test4");
 
 			
 			for (int i=0; i < level.getMap().length; i++) {
 				for (int j = 0; j < level.getMap()[i].length; j++) {
-					System.out.println(i +"  " + j);
 					if (level.getMap()[i][j] == 'X') {
+						
 						g.drawImage(gamedata.wall, i * 30, j * 30, 30, 30, this);
 						continue;
 					}
 
 					if (level.getMap()[i][j] == 'I') {
+						g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
 						g.drawImage(gamedata.VDoor, i * 30, j * 30, 30, 30, this);
+						continue;
 					}
 
 					// if (level.getMap()[j][i] == 'I') {
@@ -247,6 +245,9 @@ public class MapPanel extends JPanel implements MouseListener{
 					if (level.getMap()[i][j] == 'k') {
 						g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
 					}
+					
+					g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
+
 				}
 			}
 		}

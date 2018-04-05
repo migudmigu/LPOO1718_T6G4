@@ -19,8 +19,8 @@ import java.awt.event.ActionEvent;
 
 public class GamePanel extends JPanel implements KeyListener{
 	GameData gamedata;
-	Game game;
-	char[][] map;
+//	Game game;
+//	char[][] map;
 	private JTextField textField;
 
 	public GamePanel(GameData gamedata, StateMachine statemachine) {
@@ -33,8 +33,8 @@ public class GamePanel extends JPanel implements KeyListener{
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
 				statemachine.updateState(Action.EXIT_GAME);
+				
 			}
 		});
 		btnExit.setBounds(308, 259, 59, 25);
@@ -48,20 +48,19 @@ public class GamePanel extends JPanel implements KeyListener{
 //		paintBackground(g, Color.white);
 		boolean doorflag = false;
 		
-		if (game != null) {
-			System.out.println("cocoxixi");
-			for (int i = 0; i < game.getMapArray().length; i++) {
-				for (int j = 0; j < game.getMapArray()[i].length; j++) {
-					if (game.getMapArray()[j][i] == 'X') {
+		if (gamedata.game != null) {
+			for (int i = 0; i < gamedata.game.getMapArray().length; i++) {
+				for (int j = 0; j < gamedata.game.getMapArray()[i].length; j++) {
+					if (gamedata.game.getMapArray()[j][i] == 'X') {
 						g.drawImage(gamedata.wall, i * 30, j * 30, 30, 30, this);
 						continue;
 					}
 
 					for (int k = 0; k < 20; k++) {
-						if (game.doors[k] != null) {
-							if (j == game.doors[k].getX() && i == game.doors[k].getY()) {
+						if (gamedata.game.doors[k] != null) {
+							if (j == gamedata.game.doors[k].getX() && i == gamedata.game.doors[k].getY()) {
 								g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
-								if (game.doors[k].getOpened()) {
+								if (gamedata.game.doors[k].getOpened()) {
 									g.drawImage(gamedata.HDoor, i * 30, j * 30, 30, 30, this);
 								} else {
 									g.drawImage(gamedata.VDoor, i * 30, j * 30, 30, 30, this);
@@ -85,35 +84,42 @@ public class GamePanel extends JPanel implements KeyListener{
 //						continue;
 //					}
 					
-					if (game.getKey() != null) {
-						if (j == game.getKey().getX() && i == game.getKey().getY()) {
+					if (gamedata.game.getKey() != null) {
+						if (j == gamedata.game.getKey().getX() && i == gamedata.game.getKey().getY()) {
 							g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
 							g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
-							if (j == game.getHero().getX() && i == game.getHero().getY()) {
+							if (j == gamedata.game.getHero().getX() && i == gamedata.game.getHero().getY()) {
 								g.drawImage(gamedata.hero, i * 30, j * 30, 30, 30, this);
 							}
 							continue;
 						}
 					}
-					if (j == game.getHero().getX() && i == game.getHero().getY()) {
+					if (j == gamedata.game.getHero().getX() && i == gamedata.game.getHero().getY()) {
 						g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
 						g.drawImage(gamedata.hero,i * 30, j * 30, 30, 30, this);
 						continue;
 					}
-					if (game.getGuard() != null) {
-						if (j == game.getGuard().getX() && i == game.getGuard().getY()) {
+					if (gamedata.game.getGuard() != null) {
+						if (j == gamedata.game.getGuard().getX() && i == gamedata.game.getGuard().getY()) {
 							g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
 							g.drawImage(gamedata.guard,i * 30, j * 30, 30, 30, this);
 							continue;
 						}
 					}
-					for (int o = 0; o < game.getOgres().length; o++) {
-						if (game.getOgres()[o] != null) {
-							System.out.print("test1" + j + i);
-							System.out.print("test2" + game.getOgres()[o].getX() + game.getOgres()[o].getY());
-							if (j == game.getOgres()[o].getX() && i == game.getOgres()[o].getY()) {
+					for (int o = 0; o < gamedata.game.getOgres().length; o++) {
+						if (gamedata.game.getOgres()[o] != null) {
+							if (j == gamedata.game.getOgres()[o].getX() && i == gamedata.game.getOgres()[o].getY()) {
+								if(gamedata.game.getOgres()[o].getStunned()) {
+									g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
+									g.drawImage(gamedata.ogrestunned, i * 30, j * 30, 30, 30, this);
+								} else {
 								g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
 								g.drawImage(gamedata.ogre, i * 30, j * 30, 30, 30, this);
+								}
+							}
+							if (j == gamedata.game.getOgres()[o].getClubX() && i == gamedata.game.getOgres()[o].getClubY()) {
+								g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
+								g.drawImage(gamedata.club, i * 30, j * 30, 30, 30, this);
 							}
 						}
 					}
@@ -130,7 +136,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (game.gameOver != 1) {
+		if (gamedata.game.gameOver != 1) {
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
 				try {
@@ -169,19 +175,20 @@ public class GamePanel extends JPanel implements KeyListener{
 			System.exit(0);
 	}
 	
-	public void setGame() {
-		game = gamedata.game;
-//		this.map = gamedata.game.getMapArray();
-//		game.setGuard(comboBox.getSelectedItem().toString());
-		repaint();
-	}
+//	public void setGame() {
+//		game = gamedata.game;
+////		this.map = gamedata.game.getMapArray();
+////		game.setGuard(comboBox.getSelectedItem().toString());
+//		repaint();
+//	}
 	
 	public void checkButtons(char key) throws IOException {
-		game.handler(key);
+		gamedata.game.handler(key);
 		gamedata.setHeroDirection(key);
-		if(game.getGuard()!=null)										// OTHER WAY?
-		gamedata.setGuardDirection(game.getGuard().getDirection());
+		if(gamedata.game.getGuard()!=null)										// OTHER WAY?
+		gamedata.setGuardDirection(gamedata.game.getGuard().getDirection());
 		gamedata.setLeverDirection();
+//		gamedata.setOgreStun();
 //		if(game.getHero().checkLevelEnd(game.getMapArray()));
 		
 		

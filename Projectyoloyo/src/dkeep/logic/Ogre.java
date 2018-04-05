@@ -95,4 +95,8 @@ public class Ogre extends Character {
 
 		return clubY;
 	}
+	
+	public boolean getStunned() {
+		return stunned;
+	}
 }

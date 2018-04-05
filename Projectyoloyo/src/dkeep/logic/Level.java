@@ -20,8 +20,6 @@ public class Level {
 	public Level(char[][] map) {
 		this.map = map.clone();
 		for (int i = 0; i < map.length; i++) {
-			System.out.println(this.map[i]);
-			System.out.println("t");
 			this.map[i] = map[i].clone();}
 	}
 	
@@ -91,7 +89,6 @@ public class Level {
 	}
 	
 	public void setOgres(int n) {
-		System.out.println("peido" + n);
 
 		Random r = new Random();
 		int x;

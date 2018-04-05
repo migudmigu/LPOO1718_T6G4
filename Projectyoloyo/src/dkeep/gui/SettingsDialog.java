@@ -1,6 +1,5 @@
 package dkeep.gui;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -10,13 +9,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import dkeep.logic.Game;
 
 import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -26,6 +24,8 @@ public class SettingsDialog extends JDialog {
 	private JComboBox<String> comboBox;
 	private Game game;
 	private JTextField textField;
+	private JLabel label;
+	private JButton okButton;
 
 //	/**
 //	 * Launch the application.
@@ -56,6 +56,40 @@ public class SettingsDialog extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		
+		class MyDocumentListener implements DocumentListener {
+			public void changedUpdate(DocumentEvent e) {
+				changed();
+			}
+
+			public void removeUpdate(DocumentEvent e) {
+				changed();
+			}
+
+			public void insertUpdate(DocumentEvent e) {
+				changed();
+			}
+
+			public void changed() {
+				if (textField.getText().equals("")) {
+					okButton.setEnabled(false);
+				} else {
+					okButton.setEnabled(true);
+				}
+
+			}
+		}
+		
+//			  public void changed() {
+//			     if (textField.getText().equals("")){
+//			       okButton.setEnabled(false);
+//			     }
+//			     else {
+//			       okButton.setEnabled(true);
+//			    }
+//
+//			  }
+//			});
+		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBounds(0, 265, 450, 35);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -67,12 +101,17 @@ public class SettingsDialog extends JDialog {
 		comboBox.addItem("Rookie");
 		comboBox.addItem("Drunken");
 		comboBox.addItem("Suspicious");
-		JButton okButton = new JButton("OK");
+		okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				if(!textField.getText().isEmpty() &&  Integer.parseInt(textField.getText())>0 && Integer.parseInt(textField.getText())<4) {
 				gamedata.savePersonality((String)comboBox.getSelectedItem());
 				gamedata.saveNumOgres(textField.getText());
 				setVisible(false);
+				} else {
+					label.setText("Ogres must be 1 to 3");
+				}
 			}
 		});
 		okButton.setActionCommand("OK");
@@ -96,15 +135,16 @@ public class SettingsDialog extends JDialog {
 		textField.setBounds(181, 28, 37, 22);
 		getContentPane().add(textField);
 		textField.setColumns(10);
+		textField.getDocument().addDocumentListener(new MyDocumentListener());
 
 		JLabel lblGuardPersonality = new JLabel("Guard personality");
 		lblGuardPersonality.setBounds(12, 96, 161, 38);
 		getContentPane().add(lblGuardPersonality);
+		
+		label = new JLabel("");
+		label.setBounds(244, 31, 180, 15);
+		getContentPane().add(label);
 
 
 	}
-	
-//	public String getGuardPersonality() {
-//		return ((String)this.comboBox.getSelectedItem());
-//	}
 }
