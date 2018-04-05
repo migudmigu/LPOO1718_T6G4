@@ -35,9 +35,10 @@ public class GamePanel extends JPanel implements KeyListener{
 		boolean doorflag = false;
 		
 		if (game != null) {
-			for (int i = 0; i < map.length; i++) {
-				for (int j = 0; j < map[i].length; j++) {
-					if (map[j][i] == 'X') {
+			System.out.println("cocoxixi");
+			for (int i = 0; i < game.getMapArray().length; i++) {
+				for (int j = 0; j < game.getMapArray()[i].length; j++) {
+					if (game.getMapArray()[j][i] == 'X') {
 						g.drawImage(gamedata.wall, i * 30, j * 30, 30, 30, this);
 						continue;
 					}
@@ -49,15 +50,17 @@ public class GamePanel extends JPanel implements KeyListener{
 								if (game.doors[k].getOpened()) {
 									g.drawImage(gamedata.HDoor, i * 30, j * 30, 30, 30, this);
 								} else {
-									System.out.println(game.doors[k].getOpened() + "coco");
 									g.drawImage(gamedata.VDoor, i * 30, j * 30, 30, 30, this);
 								}
-							
 								doorflag=true;
 							}
 						}
 					}
-//					if (map[j][i] == 'I') {
+
+					if(!doorflag) {
+					g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
+					}
+//					if (game.getMapArray()[j][i] == 'I') {
 //						try {
 //							gamedata.checkDoors();
 //						} catch (IOException e) {
@@ -67,13 +70,16 @@ public class GamePanel extends JPanel implements KeyListener{
 //						g.drawImage(gamedata.VDoor,i * 30, j * 30, 30, 30, this);
 //						continue;
 //					}
-					if (j == game.getKey().getX() && i == game.getKey().getY()) {
-						g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
-						g.drawImage(gamedata.lever,i * 30, j * 30, 30, 30, this);
-						if (j == game.getHero().getX() && i == game.getHero().getY()) {
-							g.drawImage(gamedata.hero,i * 30, j * 30, 30, 30, this);
+					
+					if (game.getKey() != null) {
+						if (j == game.getKey().getX() && i == game.getKey().getY()) {
+							g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
+							g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
+							if (j == game.getHero().getX() && i == game.getHero().getY()) {
+								g.drawImage(gamedata.hero, i * 30, j * 30, 30, 30, this);
+							}
+							continue;
 						}
-						continue;
 					}
 					if (j == game.getHero().getX() && i == game.getHero().getY()) {
 						g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
@@ -87,8 +93,15 @@ public class GamePanel extends JPanel implements KeyListener{
 							continue;
 						}
 					}
-					if(!doorflag) {
-					g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
+					for (int o = 0; o < game.getOgres().length; o++) {
+						if (game.getOgres()[o] != null) {
+							System.out.print("test1" + j + i);
+							System.out.print("test2" + game.getOgres()[o].getX() + game.getOgres()[o].getY());
+							if (j == game.getOgres()[o].getX() && i == game.getOgres()[o].getY()) {
+								g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
+								g.drawImage(gamedata.ogre, i * 30, j * 30, 30, 30, this);
+							}
+						}
 					}
 					doorflag=false;
 				}
@@ -103,7 +116,6 @@ public class GamePanel extends JPanel implements KeyListener{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("ergrg");
 		if (game.gameOver != 1) {
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
@@ -146,15 +158,19 @@ public class GamePanel extends JPanel implements KeyListener{
 	public void setGame() {
 		game = gamedata.game;
 		this.map = gamedata.game.getMapArray();
-//		game.setGuard(comboBox.getSelectedItem().toString()); 
+//		game.setGuard(comboBox.getSelectedItem().toString());
 		repaint();
 	}
 	
 	public void checkButtons(char key) throws IOException {
 		game.handler(key);
 		gamedata.setHeroDirection(key);
+		if(game.getGuard()!=null)										// OTHER WAY?
 		gamedata.setGuardDirection(game.getGuard().getDirection());
 		gamedata.setLeverDirection();
+//		if(game.getHero().checkLevelEnd(game.getMapArray()));
+		
+		
 		repaint();
 	}
 

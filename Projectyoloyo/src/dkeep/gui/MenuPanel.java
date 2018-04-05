@@ -29,7 +29,6 @@ public class MenuPanel extends JPanel {
 				statemachine.updateState(Action.NEW_GAME);
 				gamedata.startGame();
 				((GamePanel)statemachine.getGamePanel()).setGame();
-				
 			}
 		});
 

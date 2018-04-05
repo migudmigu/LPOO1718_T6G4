@@ -25,6 +25,7 @@ public class SettingsDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JComboBox<String> comboBox;
 	private Game game;
+	private JTextField textField;
 
 //	/**
 //	 * Launch the application.
@@ -70,6 +71,7 @@ public class SettingsDialog extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				gamedata.savePersonality((String)comboBox.getSelectedItem());
+				gamedata.saveNumOgres(textField.getText());
 				setVisible(false);
 			}
 		});
@@ -90,7 +92,7 @@ public class SettingsDialog extends JDialog {
 		lblNumberOfOgres.setBounds(12, 30, 134, 16);
 		getContentPane().add(lblNumberOfOgres);
 
-		JTextField textField = new JTextField();
+		textField = new JTextField();
 		textField.setBounds(181, 28, 37, 22);
 		getContentPane().add(textField);
 		textField.setColumns(10);

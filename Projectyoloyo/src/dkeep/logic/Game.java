@@ -1,32 +1,37 @@
 package dkeep.logic;
 
+import dkeep.gui.GamePanel;
+
 public class Game {
 
 	public int gameOver = 0;
-	public int levNum = 1;
+//	public int levNum = 1;
 	public boolean doorsOpened = false;
 	Key key;
 	Hero hero;
 	Guard guard;
 	public Door[] doors = new Door[20];
 	int nmrDoors=0;
-	Ogre[] ogre = new Ogre[3];
+	Ogre[] ogre = new Ogre[6];
 	Level[] levels = new Level[10];
 	int lvlcount = 0;
 	Level level;
+	public int currentlvli=0;
+	int numOgres=0;
 
 	public Game() {
 		level = new Level(1);
 		addLevel(level.getMap());
 		level = new Level(2);
 		addLevel(level.getMap());
+		changeLevel(currentlvli);
 		this.findSomething();
 	}
 
 	public void findSomething() {
 
-		int ogreNumber = 0;
-
+		this.nmrDoors=0;
+		resetDoors();
 		for (int i = 0; i < level.map.length; i++) {
 
 			for (int k = 0; k < level.map[i].length; k++) {
@@ -44,15 +49,15 @@ public class Game {
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'O') {
 
-					ogre[ogreNumber] = new Ogre(i, k, 'O');
-					ogre[ogreNumber].possibleClubPos(level.map);
-					ogreNumber++;
+					ogre[numOgres] = new Ogre(i, k, 'O');
+					ogre[numOgres].possibleClubPos(level.map);
+					numOgres++;
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'k') {
 					key = new Key(i,k,'k');
 				} else if (level.map[i][k] == 'I') {
-					nmrDoors++;
 					doors[nmrDoors] = new Door(i,k,'I');
+					nmrDoors++;
 				}
 			}
 		}
@@ -61,32 +66,40 @@ public class Game {
 	}
 
 	public void setGuard(String personality) {
-		if (personality == "Drunken") {
-			guard = new DrunkenGuard(guard.getX(), guard.getY(), 'G');
-		} else if (personality == "Suspicious") {
-			guard = new SuspiciousGuard(guard.getX(), guard.getY(), 'G');
-		} else
-			guard = new RookieGuard(guard.getX(), guard.getY(), 'G');
+		if (guard != null) {
+			if (personality == "Drunken") {
+				guard = new DrunkenGuard(guard.getX(), guard.getY(), 'G');
+			} else if (personality == "Suspicious") {
+				guard = new SuspiciousGuard(guard.getX(), guard.getY(), 'G');
+			} else
+				guard = new RookieGuard(guard.getX(), guard.getY(), 'G');
+		}
 	}
+	
+//	public void setOgres(int n) {
+//		
+//	}
 
 	public void handler(char key) {
-
 		if (hero.moveHero(key, level.map))
-			changeLevel(2);
+			changeLevel(currentlvli);
 
-		if (levNum == 1) {
+		if (currentlvli == 1) {
 			guard.moveGuard(level.map);
 			checkColisionGuard();
-		} else if (levNum == 2) {
+		} else if (currentlvli == 2) {
 
 			for (int j = 0; j < ogre.length; j++) {
-
+				if(ogre[j]!=null) {
+				System.out.println(ogre.length);
 				ogre[j].moveOgre(level.map);
+				}
 			}
 			checkColisionOgreHero();
 		}
 
 		checkColisionKey();
+		printMap();
 	}
 
 	public void checkColisionGuard() {
@@ -105,7 +118,7 @@ public class Game {
 
 	public void checkColisionOgreHero() {
 		for (int j = 0; j < ogre.length; j++) {
-
+			if(ogre[j]!=null) {
 			if (hero.getX() == ogre[j].getX() && hero.getY() == ogre[j].getY()) // hero and ogre in the same position;
 				gameOver = 1;
 			else if (checkColisionOgreClub(j)) // hero dies to the ogre club
@@ -118,7 +131,7 @@ public class Game {
 				ogre[j].stunOgre();
 			else if (hero.getX() == ogre[j].getX() - 1 && hero.getY() == ogre[j].getY()) // hero stuns the ogre
 				ogre[j].stunOgre();
-		}
+		}}
 	}
 
 	public boolean checkColisionOgreClub(int j) {
@@ -147,22 +160,24 @@ public class Game {
 
 	public void checkColisionKey() {
 
-		if (levNum == 1) {
+		if (currentlvli == 1) {
 			if (hero.getX() == key.getX() && hero.getY() == key.getY()) {
 				key.triggerKey();			// NECESSARIO?
 				openDoors();
 			}
-		} else if (levNum == 2) {
+		} else if (currentlvli == 2) {
 			if (hero.getX() == key.getX() && hero.getY() == key.getY()) {
 				hero.setSymbol('K');
 				level.map[key.getX()][key.getY()] = ' ';
 			}
 
 			for (int j = 0; j < ogre.length; j++) {
-				if (ogre[j].getX() == key.getX() && ogre[j].getY() == key.getY())
-					ogre[j].setSymbol('$');
-				else
-					ogre[j].setSymbol('O');
+				if (ogre[j] != null) {
+					if (ogre[j].getX() == key.getX() && ogre[j].getY() == key.getY())
+						ogre[j].setSymbol('$');
+					else
+						ogre[j].setSymbol('O');
+				}
 			}
 		}
 	}
@@ -277,12 +292,14 @@ public class Game {
 
 	public void changeLevel(int l) {
 
-		levNum = l;
-		this.level = null;
-		this.level = new Level(l);
+//		levNum = l;
+//		this.level = null;
+//		this.level = new Level(l);
+		this.level = levels[l];
 		this.hero = null;
 		this.guard = null;
 		this.findSomething();
+		currentlvli++;
 	}
 	
 	public void checkIfDoorsOpenable() {
@@ -300,12 +317,31 @@ public class Game {
 		lvlcount++;
 	}
 	
+	public void resetDoors() {
+		for(int i = 0 ; i < doors.length ; i++) {
+			doors[i]=null;
+		}
+	}
+	
 	public Level[] getLevels(){
 		return levels;
 	}
 	
+	public void loadLevels(Level[] levels) {
+		this.levels=levels;
+	}
+	
 	public int getLevelcount() {
 		return this.lvlcount;
+	}
+	
+	public Ogre[] getOgres() {
+		return this.ogre;
+	}
+	
+	public void setOgres(int n) {
+		numOgres=n;
+		levels[1].setOgres(n);
 	}
 	
 //	public int getKeyX() {

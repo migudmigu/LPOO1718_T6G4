@@ -21,18 +21,25 @@ public class GameData {
 	BufferedImage HDoor;
 	BufferedImage guard;
 	BufferedImage lever;
-	Level[] levels;
-	int lvlcount = 2;
+	BufferedImage ogre;
+	public Level[] levels;
+	int lvlcount = 0;
 	
 	public GameData() throws IOException {
 		personality = "Rookie";					//		DEFAULT
 		numOgres = 1;
 		loadImages();
 		this.levels = new Level[10];
+		this.addLevel(new Level(1));
+		this.addLevel(new Level(2));
 	}
 
 	public void savePersonality(String personality) {
 		this.personality = personality;
+	}
+
+	public void saveNumOgres(String text) {
+		numOgres = Integer.parseInt(text);
 	}
 	
 	public void updateGame(char key) {
@@ -41,9 +48,9 @@ public class GameData {
 	
 	public void startGame() {
 		this.game= new Game();
-		this.levels=game.getLevels();
 		game.setGuard(personality);
-//		game.setOgres(numOgres);
+		game.setOgres(numOgres);
+		this.game.loadLevels(levels);
 	}
 	
 	public void loadImages() throws IOException {
@@ -54,6 +61,7 @@ public class GameData {
 		this.HDoor = ImageIO.read(new File("Images/HorDoors.png"));
 		this.guard = ImageIO.read(new File("Images/guardDown.png"));
 		this.lever = ImageIO.read(new File("Images/Lever.png"));
+		this.ogre = ImageIO.read(new File("Images/Ogre.png"));
 	}
 	
 	public void addLevel(Level level) {
@@ -81,17 +89,51 @@ public class GameData {
 	}
 	
 	public void setGuardDirection(char key) throws IOException {
-		switch(key) {
-		case 'w':this.guard = ImageIO.read(new File("Images/guardUp.png"));break;
-		case 'a':this.guard = ImageIO.read(new File("Images/guardLeft.png")); break;
-		case 's':this.guard = ImageIO.read(new File("Images/guardDown.png")); break;
-		case 'd':this.guard = ImageIO.read(new File("Images/guardRight.png")); break;
+		if (guard != null) {
+			switch (key) {
+			case 'w':
+				this.guard = ImageIO.read(new File("Images/guardUp.png"));
+				break;
+			case 'a':
+				this.guard = ImageIO.read(new File("Images/guardLeft.png"));
+				break;
+			case 's':
+				this.guard = ImageIO.read(new File("Images/guardDown.png"));
+				break;
+			case 'd':
+				this.guard = ImageIO.read(new File("Images/guardRight.png"));
+				break;
+			}
 		}
 	}
 	
 	public void setLeverDirection() throws IOException {
+		
 		if(game.getKey().getTriggered())
 		this.lever = ImageIO.read(new File("Images/Lever2.png"));
 		else this.lever = ImageIO.read(new File("Images/Lever.png"));
 	}
+	
+	public char[][] generateMap(int dimx, int dimy) {
+		char[][] mapa = new char[dimy][dimx];
+		
+		for (int i = 0; i < mapa.length; i++) {
+			for (int j = 0; j < mapa[i].length; j++) {
+				if(i==0||j==0||i==mapa.length-1||j==mapa[i].length-1)
+				mapa[i][j] = 'X';
+				else mapa[i][j] = ' ';
+//				System.out.println(dimy + " dim" + dimx);
+//				System.out.println(mapa[i][j]);
+			}
+		 }
+		
+//		for (int i = 0; i < dimx; i++) {							
+//			for (int j = 0; j < dimy; j++) {
+//				System.out.print(mapa[i][j]);
+//			}
+//			System.out.println();
+//		 }
+		
+		return mapa;
+	}	
 }
