@@ -21,24 +21,4 @@ public abstract class Object {
 		return y;
 	}
 
-	public char getSymbol() {
-
-		return this.symbol;
-	}
-
-	public void setX(int x) {
-
-		this.x = x;
-	}
-
-	public void setY(int y) {
-
-		this.y = y;
-	}
-
-	public void setSymbol(char symbol) {
-
-		this.symbol = symbol;
-	}
-
 }

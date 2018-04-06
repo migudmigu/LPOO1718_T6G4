@@ -4,8 +4,7 @@ import dkeep.gui.GamePanel;
 
 public class Game {
 
-	public int gameOver = 0;
-//	public int levNum = 1;
+	public int gameOver = 0; //0 = keep playing       1 = defeat         2 = victory
 	public boolean doorsOpened = false;
 	Lever lever;
 	Key key;
@@ -84,8 +83,8 @@ public class Game {
 //	}
 
 	public void handler(char key) {
-		if (hero.moveHero(key, level.map))
-			changeLevel(currentlvli);
+		
+		hero.moveHero(key, level.map, this);
 
 		if (currentlvli == 1) {
 			guard.moveGuard(level.map);
@@ -151,7 +150,7 @@ public class Game {
 			return false;
 	}
 
-	public void changeDoorsBoolean() {					//in new DOOR CLASS
+	public void changeDoorsBoolean() {										//not needed
 
 		if (doorsOpened)
 			doorsOpened = false;
@@ -163,7 +162,7 @@ public class Game {
 
 		if (currentlvli == 1) {
 			if (hero.getX() == lever.getX() && hero.getY() == lever.getY()) {
-				lever.triggerKey();			// NECESSARIO?
+				lever.triggerKey();
 				openDoors();
 			}
 		} else if (currentlvli == 2) {
@@ -246,56 +245,12 @@ public class Game {
 		}
 	}
 	
-	// Function used in iteration 4
-	public String getMapa() {
-		String mapaString = "";
-		for (int i = 0; i < level.map.length; i++) {
-
-			for (int k = 0; k < level.map[i].length; k++) {
-
-				boolean found = false;
-				for (int j = 0; j < ogre.length; j++) {
-
-					if (ogre[j] != null && ogre[j].getX() == i && ogre[j].getY() == k) {
-						// System.out.print(ogre[j].getSymbol());
-						if (ogre[j].stunned == true)
-							mapaString += '8';
-						else
-							mapaString += 'O';
-						found = true;
-					} else if (!found && ogre[j] != null && ogre[j].clubX == i && ogre[j].clubY == k) {
-						if (level.map[i][k] == 'k')
-							mapaString += '$';
-						else
-							mapaString += '*';
-						found = true;
-					}
-				}
-				if (!found) {
-					if (hero.getX() == i && hero.getY() == k)
-						mapaString += hero.getSymbol();
-					else if (guard != null && guard.getX() == i && guard.getY() == k) {
-						mapaString += guard.getSymbol();
-					} else {
-						mapaString += level.map[i][k];
-					}
-				}
-			}
-			mapaString += '\n';
-		}
-
-		return mapaString;
-	}
-
 	public char[][] getMapArray() {
 		return this.level.map;
 	}
 
 	public void changeLevel(int l) {
 
-//		levNum = l;
-//		this.level = null;
-//		this.level = new Level(l);
 		this.level = levels[l];
 		this.hero = null;
 		this.guard = null;
@@ -323,7 +278,7 @@ public class Game {
 		}
 	}
 	
-	public Level[] getLevels(){
+	public Level[] getLevels(){									//not needed
 		return levels;
 	}
 	
@@ -331,7 +286,7 @@ public class Game {
 		this.levels=levels;
 	}
 	
-	public int getLevelcount() {
+	public int getLevelcount() {								//not needed
 		return this.lvlcount;
 	}
 	
@@ -344,14 +299,6 @@ public class Game {
 		levels[1].setOgres(n);
 	}
 	
-//	public int getKeyX() {
-//		return keyX;
-//	}
-//
-//	public int getKeyY() {
-//		return keyY;
-//	}
-
 	public Hero getHero() {
 		return hero;
 	}
@@ -364,7 +311,16 @@ public class Game {
 		return lever;
 	}
 
-	public Key getKey() {
-		return key;
+	public void setMap(char[][] map) {
+		levels[0].setMap(map);
+		findSomething();
+	}
+	
+	public void gameResult() {										//not needed
+		
+		if(gameOver == 1)
+			System.out.println("You Lost...");
+		else
+			System.out.println("You Won!");
 	}
 }

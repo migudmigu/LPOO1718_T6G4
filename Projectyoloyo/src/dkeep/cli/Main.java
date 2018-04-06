@@ -18,6 +18,7 @@ public class Main {
 			game.printMap();
 		}
 		
+		game.gameResult();
 	}
 	
 	public static char readKey() {

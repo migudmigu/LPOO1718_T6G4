@@ -9,11 +9,11 @@ public class Key extends Object{
 		this.symbol='K';
 	}
 	
-	public void triggerKey() {
+	public void triggerKey() {								//not needed
 		triggered=!triggered;
 	}
 	
-	public boolean getTriggered() {
+	public boolean getTriggered() {							//not needed
 		return this.triggered;
 	}
 	

@@ -3,18 +3,24 @@ package dkeep.logic;
 public class Hero extends Character {
 
 	boolean haskey = false;
-	
+
 	public Hero(int x, int y, char symbol) {
 		super(x, y, symbol);
 	}
 
-	public boolean moveHero(char key, char[][] map) {
-		
+	public void moveHero(char key, char[][] map, Game game) {
+
 		if (checkDoorWithKey(map) == key)
 			openDoorWithKey(map);
 		else
 			moveCharacter(key, map);
-		return checkLevelEnd(map);
+
+		if (checkLevelEnd(map)) {
+			if (game.currentlvli == game.lvlcount)
+				game.gameOver = 2;
+			else
+				game.changeLevel(game.currentlvli);
+		}
 	}
 
 	public boolean checkLevelEnd(char[][] map) {
@@ -62,9 +68,9 @@ public class Hero extends Character {
 
 	public void setHaskey() {
 		this.setSymbol('K');
-		this.haskey=true;
+		this.haskey = true;
 	}
-	
+
 	public boolean getHaskey() {
 		return haskey;
 	}

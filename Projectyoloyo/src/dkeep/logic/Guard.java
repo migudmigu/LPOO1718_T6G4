@@ -76,4 +76,16 @@ public class Guard extends Character {
 	public char getDirection() {
 		return this.direction;
 	}
+	
+	public void setPath(char[] path) {
+		guardpath = path;
+	}
+	
+	public boolean getAsleep() {
+		return this.asleep;
+	}
+	
+	public boolean getReverse() {
+		return this.reverse;
+	}
 }
