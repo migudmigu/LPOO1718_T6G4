@@ -17,10 +17,16 @@ public class StateMachine {
 		NEW_GAME, CREATE_MAP_E, GAME_OVER,  CLOSE_CUSTOM, EXIT_GAME
 	}
 
+	/**
+	 * 
+	 */
 	public StateMachine() { // POR OS STATES NUMA FUNÇAO SETSTATES se nao n da
 		this.state = State.MENU;
 	}
 
+	/**
+	 * @param action
+	 */
 	public void updateState(Action action) {
 		switch (action) {
 		case NEW_GAME:
@@ -54,12 +60,20 @@ public class StateMachine {
 		}
 	}
 
+	/**
+	 * @param gamepanel
+	 * @param menupanel
+	 * @param mappanel
+	 */
 	public void setStates(JPanel gamepanel, JPanel menupanel, JPanel mappanel) {
 		this.gamepanel=gamepanel;
 		this.menupanel=menupanel;
 		this.mappanel=mappanel;
 	}
 	
+	/**
+	 * @return
+	 */
 	public JPanel getGamePanel() {
 		return this.gamepanel;
 	}

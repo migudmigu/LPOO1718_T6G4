@@ -19,6 +19,10 @@ public class MenuPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	/**
+	 * @param statemachine
+	 * @param gamedata
+	 */
 	public MenuPanel(StateMachine statemachine,GameData gamedata) {
 		settingsdialog = new SettingsDialog(gamedata);
 		this.statemachine = statemachine;

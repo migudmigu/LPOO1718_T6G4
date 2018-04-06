@@ -45,6 +45,9 @@ public class Window {
 	/**
 	 * Launch the application.
 	 */
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -103,79 +106,14 @@ public class Window {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		statemachine.setStates(gamepanel, menupanel,mappanel);
-		
-//		textArea = new JTextArea();
-//		textArea.setFont(new Font("DialogInput", Font.PLAIN, 12));
-//		textArea.setEditable(false);
-//		textArea.setBounds(40, 104, 322, 278);
-//		JanelaMenu.getContentPane().add(textArea);
-		
-
-		
-//		JButton btnNewGame = new JButton("New Game");
-//		btnNewGame.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				game = new Game();
-//				((GamePanel)gamepanel).setGame(game);
-////				game.setGuard(comboBox.getSelectedItem().toString());
-//				gamepanel.repaint();
-//			}
-//		});
-//		btnNewGame.setBounds(406, 72, 117, 25);
-//		JanelaMenu.getContentPane().add(btnNewGame);
-//		
-//		btnUp = new JButton("UP");
-//		btnUp.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				checkButtons('w');
-//				gamepanel.requestFocus();
-//			}
-//		});
-//		btnUp.setBounds(451, 138, 53, 25);
-//		JanelaMenu.getContentPane().add(btnUp);
-//		
-//		btnRight = new JButton("RIGHT");
-//		btnRight.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				checkButtons('d');
-//				gamepanel.requestFocus();
-//			}
-//		});
-//		btnRight.setBounds(502, 175, 75, 25);
-//		JanelaMenu.getContentPane().add(btnRight);
-//		
-//		btnLeft = new JButton("LEFT");
-//		btnLeft.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				checkButtons('a');
-//				gamepanel.requestFocus();
-//			}
-//		});
-//		btnLeft.setBounds(374, 175, 75, 25);
-//		JanelaMenu.getContentPane().add(btnLeft);
-//		
-//		btnDown = new JButton("DOWN");
-//		btnDown.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				checkButtons('s');
-//				gamepanel.requestFocus();
-//			}
-//		});
-//		btnDown.setBounds(437, 212, 86, 25);
-//		JanelaMenu.getContentPane().add(btnDown);
-		
 	}
 	
+	/**
+	 * @param key
+	 */
 	public void checkButtons(char key) {
 
 		gamedata.updateGame(key);
 		gamepanel.repaint();
-//		textArea.setText(game.getMapa());
-//		if(game.gameOver == 1) {
-//			btnLeft.setEnabled(false);
-//			btnRight.setEnabled(false);
-//			btnUp.setEnabled(false);
-//			btnDown.setEnabled(false);
-//		}
 	}
 }

@@ -4,10 +4,18 @@ import java.util.Random;
 
 public class SuspiciousGuard extends Guard {
 
+	/**
+	 * @param x
+	 * @param y
+	 * @param symbol
+	 */
 	public SuspiciousGuard(int x, int y, char symbol) {
 		super(x, y, symbol);
 	}
 
+	/**
+	 * 
+	 */
 	public void reversePatrol() {
 
 		r = new Random();
@@ -17,6 +25,9 @@ public class SuspiciousGuard extends Guard {
 			setReverse();
 	}
 
+	/**
+	 * @param map
+	 */
 	public void moveSuspiciousGuard(char[][] map) {
 		reversePatrol();
 		if (reverse) {

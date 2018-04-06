@@ -4,12 +4,23 @@ import java.util.Random;
 
 public class DrunkenGuard extends Guard {
 
+	/**
+	 * @param x
+	 * @param y
+	 * @param symbol
+	 */
 	public DrunkenGuard(int x, int y, char symbol) {
 		super(x, y, symbol);}
 
+	/* (non-Javadoc)
+	 * @see dkeep.logic.Guard#getAsleep()
+	 */
 	public boolean getAsleep() {
 		return asleep;}
 
+	/**
+	 * 
+	 */
 	public void fallAsleep() {
 
 		r = new Random();
@@ -32,6 +43,9 @@ public class DrunkenGuard extends Guard {
 		}
 	}
 
+	/**
+	 * @param map
+	 */
 	public void moveDrunkenGuard(char[][] map) {
 
 		fallAsleep();

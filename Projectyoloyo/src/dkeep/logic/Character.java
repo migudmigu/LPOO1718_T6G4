@@ -10,18 +10,34 @@ public abstract class Character {
 		this.y = y;
 		this.symbol = symbol;}
 
+	/**
+	 * @return
+	 */
 	public int getX() {
 		return x;}
 
+	/**
+	 * @return
+	 */
 	public int getY() {
 		return y;}
 
+	/**
+	 * @return
+	 */
 	public char getSymbol() {
 		return this.symbol;}
 
+	/**
+	 * @param symbol
+	 */
 	public void setSymbol(char symbol) {
 		this.symbol = symbol;}
 
+	/**
+	 * @param key
+	 * @param map
+	 */
 	public void moveCharacter(char key, char[][] map) {
 
 		switch(key) {

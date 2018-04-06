@@ -6,6 +6,9 @@ import dkeep.logic.Game;
 
 public class Main {
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		Game game = new Game();
@@ -21,6 +24,9 @@ public class Main {
 		game.gameResult();
 	}
 	
+	/**
+	 * @return
+	 */
 	public static char readKey() {
 		Scanner s = new Scanner(System.in);
 		char tecla = s.next().charAt(0);

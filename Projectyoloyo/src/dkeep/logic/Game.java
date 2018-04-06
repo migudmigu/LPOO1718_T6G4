@@ -18,6 +18,9 @@ public class Game {
 	Level level;
 	public int currentlvli=0;
 
+	/**
+	 * 
+	 */
 	public Game() {
 		level = new Level(1);
 		addLevel(level);
@@ -27,6 +30,9 @@ public class Game {
 		this.findSomething();
 	}
 
+	/**
+	 * 
+	 */
 	public void findSomething() {
 		this.nmrDoors=0;
 		resetDoors();
@@ -69,6 +75,9 @@ public class Game {
 		printMap();
 	}
 	
+	/**
+	 * @param personality
+	 */
 	public void setGuard(String personality) {
 		if (guard != null) {
 			if (personality == "Drunken") {
@@ -78,6 +87,9 @@ public class Game {
 			} else
 				guard = new RookieGuard(guard.getX(), guard.getY(), 'G');}}
 	
+	/**
+	 * @param key
+	 */
 	public void handler(char key) {
 		hero.moveHero(key, level.map, this);
 		if (currentlvli == 1) {
@@ -91,12 +103,18 @@ public class Game {
 		checkColisionKey();
 		printMap();}
 
+	/**
+	 * 
+	 */
 	public void checkColisionGuard() {
 
 		if ((hero.getX() == guard.getX() && hero.getY() == guard.getY()) || (hero.getX() == guard.getX() && hero.getY() == guard.getY() + 1) || (hero.getX() == guard.getX() && hero.getY() == guard.getY() - 1) || (hero.getX() == guard.getX() + 1 && hero.getY() == guard.getY()) || (hero.getX() == guard.getX() - 1 && hero.getY() == guard.getY()))
 			gameOver = 1;
 	}
 
+	/**
+	 * 
+	 */
 	public void checkColisionOgreHero() {
 		for (int j = 0; j < ogre.length; j++) {
 			if(ogre[j]!=null) {
@@ -115,6 +133,10 @@ public class Game {
 		}}
 	}
 
+	/**
+	 * @param j
+	 * @return
+	 */
 	public boolean checkColisionOgreClub(int j) {
 		if (hero.getX() == ogre[j].getClubX() && hero.getY() == ogre[j].getClubY())return true;
 		else if (hero.getX() == ogre[j].getClubX() && hero.getY() == ogre[j].getClubY() + 1)return true;
@@ -123,10 +145,16 @@ public class Game {
 		else if (hero.getX() == ogre[j].getClubX() - 1 && hero.getY() == ogre[j].getClubY())return true;
 		else return false;}
 
+	/**
+	 * 
+	 */
 	public void changeDoorsBoolean() {										//not needed
 		if (doorsOpened) doorsOpened = false;
 		else doorsOpened = true;}
 
+	/**
+	 * 
+	 */
 	public void checkColisionKey() {
 		if (currentlvli == 1) {
 			if (hero.getX() == lever.getX() && hero.getY() == lever.getY()) {
@@ -141,6 +169,9 @@ public class Game {
 					if (ogre[j].getX() == key.getX() && ogre[j].getY() == key.getY()) ogre[j].setSymbol('$');
 					else ogre[j].setSymbol('O');}}}}
 
+	/**
+	 * 
+	 */
 	public void openDoors() {
 		for(int i = 0 ; i < 20 ; i++) {
 			if(doors[i]!=null) {
@@ -151,6 +182,9 @@ public class Game {
 					if (level.map[i][k] == 'I')level.map[i][k] = 's';
 					else if (level.map[i][k] == 's')level.map[i][k] = 'I';}}}}
 
+	/**
+	 * 
+	 */
 	public void printMap() {
 		for (int i = 0; i < level.map.length; i++) {
 			for (int k = 0; k < level.map[i].length; k++) {
@@ -170,10 +204,16 @@ public class Game {
 					else System.out.print(level.map[i][k]);	}}
 			System.out.println();}}
 	
+	/**
+	 * @return
+	 */
 	public char[][] getMapArray() {
 		return this.level.map;
 	}
 
+	/**
+	 * @param l
+	 */
 	public void changeLevel(int l) {
 		this.level = levels[l];
 		this.hero = null;
@@ -182,58 +222,97 @@ public class Game {
 		currentlvli++;
 	}
 	
+	/**
+	 * 
+	 */
 	public void checkIfDoorsOpenable() {
 		for(int i = 0 ; i < 20 ; i++) {
 			if(doors[i]!=null) {
 				if(doors[i].getX()==0 || doors[i].getX()==this.level.map.length-1 || doors[i].getY()==0 || doors[i].getY()==this.level.map[0].length-1)
 					doors[i].setOpenable();	}}}
 
+	/**
+	 * @param level
+	 */
 	public void addLevel(Level level) {
 		levels[lvlcount] = level;
 		lvlcount++;}
 	
+	/**
+	 * 
+	 */
 	public void resetDoors() {
 		for(int i = 0 ; i < doors.length ; i++) {
 			doors[i]=null;}}
 	
+	/**
+	 * @return
+	 */
 	public Level[] getLevels(){									//not needed
 		return levels;
 	}
 	
+	/**
+	 * @param levels
+	 */
 	public void loadLevels(Level[] levels) {
 		this.levels=levels;
 	}
 	
+	/**
+	 * @return
+	 */
 	public int getLevelcount() {								//not needed
 		return this.lvlcount;
 	}
 	
+	/**
+	 * @return
+	 */
 	public Ogre[] getOgres() {
 		return this.ogre;
 	}
 	
+	/**
+	 * @param n
+	 */
 	public void setOgres(int n) {
 //		numOgres=n;
 		levels[1].setOgres(n);
 	}
 	
+	/**
+	 * @return
+	 */
 	public Hero getHero() {
 		return hero;
 	}
 
+	/**
+	 * @return
+	 */
 	public Guard getGuard() {
 		return guard;
 	}
 	
+	/**
+	 * @return
+	 */
 	public Lever getLever() {
 		return lever;
 	}
 
+	/**
+	 * @param map
+	 */
 	public void setMap(char[][] map) {
 		levels[0].setMap(map);
 		findSomething();
 	}
 	
+	/**
+	 * 
+	 */
 	public void gameResult() {										//not needed
 		if(gameOver == 1) System.out.println("You Lost...");
 		else System.out.println("You Won!");

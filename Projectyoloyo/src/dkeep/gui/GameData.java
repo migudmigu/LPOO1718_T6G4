@@ -20,6 +20,9 @@ public class GameData {
 	public Level[] levels;
 	int lvlcount = 0;
 	
+	/**
+	 * @throws IOException
+	 */
 	public GameData() throws IOException {
 		personality = "Rookie";					//		DEFAULT
 		numOgres = 1;
@@ -29,18 +32,30 @@ public class GameData {
 		this.addLevel(new Level(2));
 	}
 
+	/**
+	 * @param personality
+	 */
 	public void savePersonality(String personality) {
 		this.personality = personality;
 	}
 
+	/**
+	 * @param text
+	 */
 	public void saveNumOgres(String text) {
 		numOgres = Integer.parseInt(text);
 	}
 	
+	/**
+	 * @param key
+	 */
 	public void updateGame(char key) {
 		game.handler(key);
 	}
 	
+	/**
+	 * 
+	 */
 	public void startGame() {
 		this.game= new Game();
 		this.game.loadLevels(levels);
@@ -48,6 +63,9 @@ public class GameData {
 		game.setOgres(numOgres);
 	}
 	
+	/**
+	 * @throws IOException
+	 */
 	public void loadImages() throws IOException {
 		this.hero = ImageIO.read(new File("Images/hero.png"));
 		this.floor = ImageIO.read(new File("Images/floor.jpg"));
@@ -68,15 +86,25 @@ public class GameData {
 		this.ogreicon = new ImageIcon("Images/ogreicon.png");
 	} 
 	
+	/**
+	 * @param level
+	 */
 	public void addLevel(Level level) {
 		this.levels[lvlcount]=level;
 		this.lvlcount++;
 	}
 	
+	/**
+	 * @return
+	 */
 	public int getLevelCount() {
 		return this.lvlcount;
 	}
 	
+	/**
+	 * @param key
+	 * @throws IOException
+	 */
 	public void setHeroDirection(char key) throws IOException {
 		switch (key) {
 		case 'w':
@@ -94,6 +122,10 @@ public class GameData {
 		}
 	}
 	
+	/**
+	 * @param key
+	 * @throws IOException
+	 */
 	public void setGuardDirection(char key) throws IOException {
 		if (guard != null) {
 			switch (key) {
@@ -113,6 +145,9 @@ public class GameData {
 		}
 	}
 	
+	/**
+	 * @throws IOException
+	 */
 	public void setLeverDirection() throws IOException {
 		if(game.getLever().getTriggered())
 		this.lever = ImageIO.read(new File("Images/Lever2.png"));

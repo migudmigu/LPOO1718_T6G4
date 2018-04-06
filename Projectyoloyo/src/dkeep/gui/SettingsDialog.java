@@ -43,6 +43,9 @@ public class SettingsDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
+	/**
+	 * @param gamedata
+	 */
 	public SettingsDialog(GameData gamedata) {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);

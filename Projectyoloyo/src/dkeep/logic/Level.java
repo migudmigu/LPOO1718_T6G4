@@ -6,6 +6,9 @@ public class Level {
 	
 	int numOgres=0;
 	
+	/**
+	 * @param l
+	 */
 	public Level(int l) {
 		if (l == 1) {
 			map = map1.clone();
@@ -16,6 +19,9 @@ public class Level {
 			for (int i = 0; i < map2.length; i++)
 				this.map[i] = map2[i].clone();}}
 
+	/**
+	 * 
+	 */
 	public Level() {}
 
 	protected char map[][];
@@ -23,22 +29,40 @@ public class Level {
 	
 	protected char map2[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', 'K', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },{ 'X', 'A', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 	
+	/**
+	 * @param x
+	 * @param y
+	 * @param symbol
+	 */
 	public void setCell(int x, int y, char symbol) {
 		map[x][y] = symbol;
 	}
 
+	/**
+	 * @param x
+	 * @param y
+	 */
 	public void eraseCell(int x, int y) {
 		map[x][y] = ' ';
 	}
 
+	/**
+	 * @return
+	 */
 	public char[][] getMap() {
 		return map;
 	}
 
+	/**
+	 * @param map
+	 */
 	public void setMap(char[][] map) {
 		this.map = map;
 	}
 
+	/**
+	 * @param n
+	 */
 	public void setOgres(int n) {
 		Random r = new Random();
 		int x;

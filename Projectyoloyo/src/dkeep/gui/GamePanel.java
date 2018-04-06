@@ -26,6 +26,10 @@ public class GamePanel extends JPanel implements KeyListener{
 	 * @param gamedata 
 	 * @param statemachine
 	 */
+	/**
+	 * @param gamedata
+	 * @param statemachine
+	 */
 	public GamePanel(GameData gamedata, StateMachine statemachine) {
 		this.gamedata=gamedata;
 		addKeyListener(this);
@@ -33,6 +37,9 @@ public class GamePanel extends JPanel implements KeyListener{
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			public void actionPerformed(ActionEvent arg0) {
 				statemachine.updateState(Action.EXIT_GAME);
 				
@@ -42,6 +49,9 @@ public class GamePanel extends JPanel implements KeyListener{
 		add(btnExit);
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
@@ -142,6 +152,9 @@ public class GamePanel extends JPanel implements KeyListener{
 	/* (non-Javadoc)
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 	 */
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (gamedata.game.gameOver != 1) {
@@ -194,6 +207,10 @@ public class GamePanel extends JPanel implements KeyListener{
 	 * @param key
 	 * @throws IOException
 	 */
+	/**
+	 * @param key
+	 * @throws IOException
+	 */
 	public void checkButtons(char key) throws IOException {
 		gamedata.game.handler(key);
 		gamedata.setHeroDirection(key);
@@ -210,15 +227,24 @@ public class GamePanel extends JPanel implements KeyListener{
 	/* (non-Javadoc)
 	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
 	 */
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {}
 
 	/* (non-Javadoc)
 	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
 	 */
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {}
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#requestFocus()
+	 */
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#requestFocus()
 	 */

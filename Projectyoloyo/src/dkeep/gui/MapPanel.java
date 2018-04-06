@@ -235,6 +235,9 @@ public class MapPanel extends JPanel implements MouseListener {
 		// this.repaint();
 	}
 
+	/**
+	 * @param level
+	 */
 	public void addLevelBox(Level level) {
 
 		level = new Level();
@@ -254,11 +257,17 @@ public class MapPanel extends JPanel implements MouseListener {
 
 	}
 
+	/**
+	 * 
+	 */
 	public void updateMapDim() {
 		tlevel.setMap(generateMap(dim, dim));
 		repaint();
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -267,6 +276,10 @@ public class MapPanel extends JPanel implements MouseListener {
 
 	}
 
+	/**
+	 * @param g
+	 * @param level
+	 */
 	public void paintLevel(Graphics g, Level level) {
 
 		boolean doorflag = false;
@@ -340,6 +353,9 @@ public class MapPanel extends JPanel implements MouseListener {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void loadIcons() {
 		label.setIcon(gamedata.wallicon);
 		label_1.setIcon(gamedata.dooricon);
@@ -365,11 +381,17 @@ public class MapPanel extends JPanel implements MouseListener {
 		// BufferedImage lever;
 	}
 
+	/**
+	 * @param level
+	 */
 	public void addLevel(Level level) {
 		this.tlevels[tlvlcount] = level;
 		this.tlvlcount++;
 	}
 
+	/**
+	 * 
+	 */
 	public void drawMap() {
 		int x;
 		int y;
@@ -391,6 +413,9 @@ public class MapPanel extends JPanel implements MouseListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (comboBox.getSelectedIndex() > 1) {
@@ -425,6 +450,11 @@ public class MapPanel extends JPanel implements MouseListener {
 		}
 	}
 
+	/**
+	 * @param dimx
+	 * @param dimy
+	 * @return
+	 */
 	public char[][] generateMap(int dimx, int dimy) {
 		char[][] mapa = new char[dimy][dimx];
 		
@@ -449,21 +479,33 @@ public class MapPanel extends JPanel implements MouseListener {
 	}
 	
 	// public boolean inside
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 
