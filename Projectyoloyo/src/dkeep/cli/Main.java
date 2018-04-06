@@ -31,5 +31,6 @@ public class Main {
 		Scanner s = new Scanner(System.in);
 		char tecla = s.next().charAt(0);
 		return tecla;
+		
 	}
 }
