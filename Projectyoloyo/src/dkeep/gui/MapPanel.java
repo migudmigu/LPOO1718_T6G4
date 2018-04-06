@@ -26,8 +26,7 @@ import java.awt.Color;
 public class MapPanel extends JPanel implements MouseListener {
 	private JTextField textField;
 	private JTextField textField_1;
-	private int dimx = 5;
-	private int dimy = 5;
+	private int dim = 10;
 	private GameData gamedata;
 	// Level level;
 	private JComboBox comboBox;
@@ -52,14 +51,14 @@ public class MapPanel extends JPanel implements MouseListener {
 
 	class SliderListener implements ChangeListener {
 		public void stateChanged(ChangeEvent e) {
-			dimy = slider.getValue();
+			dim = slider.getValue();
 			updateMapDim();
 		}
 	}
 
 	class SliderListener2 implements ChangeListener {
 		public void stateChanged(ChangeEvent e) {
-			dimx = slider_1.getValue();
+			dim = slider_1.getValue();
 			updateMapDim();
 		}
 	}
@@ -221,7 +220,7 @@ public class MapPanel extends JPanel implements MouseListener {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBox.getSelectedIndex() > 1) {
 					slider.setEnabled(true);
-					slider_1.setEnabled(true);
+//					slider_1.setEnabled(true);		NOT WORKING
 				} else {
 					slider.setEnabled(false);
 					slider_1.setEnabled(false);
@@ -239,7 +238,14 @@ public class MapPanel extends JPanel implements MouseListener {
 	public void addLevelBox(Level level) {
 
 		level = new Level();
-		level.setMap(gamedata.generateMap(dimx, dimy));
+		level.setMap(generateMap(dim, dim));
+		System.out.println("generated map");
+		for (int i = 0; i < level.getMap().length; i++) {
+			for (int j = 0; j < level.getMap()[i].length; j++) {
+				System.out.print(level.getMap()[i][j]);
+			}
+			System.out.println();
+		}
 		addLevel(level);
 		comboBox.addItem(tlvlcount);
 		// gamedata.addLevel(level);
@@ -249,7 +255,7 @@ public class MapPanel extends JPanel implements MouseListener {
 	}
 
 	public void updateMapDim() {
-		tlevel.setMap(gamedata.generateMap(dimx, dimy));
+		tlevel.setMap(generateMap(dim, dim));
 		repaint();
 	}
 
@@ -264,22 +270,29 @@ public class MapPanel extends JPanel implements MouseListener {
 	public void paintLevel(Graphics g, Level level) {
 
 		boolean doorflag = false;
-
+		
+		System.out.println("generated map:");
+		for (int i = 0; i < level.getMap().length; i++) {
+			for (int j = 0; j < level.getMap()[i].length; j++) {
+				System.out.print(level.getMap()[i][j]);
+			}
+			System.out.println();
+		}
+		
 		if (level != null) {
 			System.out.println("test");
 			if (level.getMap() != null)
 				System.out.println("test4");
-
 			for (int i = 0; i < level.getMap().length; i++) {
 				for (int j = 0; j < level.getMap()[i].length; j++) {
 					System.out.println(i + "  " + j);
-					if (level.getMap()[i][j] == 'X') {
+					if (level.getMap()[j][i] == 'X') {
 
 						g.drawImage(gamedata.wall, i * 30, j * 30, 30, 30, this);
 						continue;
 					}
 
-					if (level.getMap()[i][j] == 'I') {
+					if (level.getMap()[j][i] == 'I') {
 						g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
 						g.drawImage(gamedata.VDoor, i * 30, j * 30, 30, 30, this);
 						continue;
@@ -296,25 +309,25 @@ public class MapPanel extends JPanel implements MouseListener {
 					// continue;
 					// }
 
-					if (level.getMap()[i][j] == 'k') {
+					if (level.getMap()[j][i] == 'k') {
 						g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
 						g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
 						continue;
 					}
 					
-					if (level.getMap()[i][j] == 'K') {
+					if (level.getMap()[j][i] == 'K') {
 						g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
 						g.drawImage(gamedata.key, i * 30, j * 30, 30, 30, this);
 						continue;
 					}
 					
-					if (level.getMap()[i][j] == 'H') {
+					if (level.getMap()[j][i] == 'H') {
 						g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
 						g.drawImage(gamedata.hero, i * 30, j * 30, 30, 30, this);
 						continue;
 					}
 					
-					if (level.getMap()[i][j] == 'O') {
+					if (level.getMap()[j][i] == 'O') {
 						g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
 						g.drawImage(gamedata.ogre, i * 30, j * 30, 30, 30, this);
 						continue;
@@ -360,14 +373,14 @@ public class MapPanel extends JPanel implements MouseListener {
 	public void drawMap() {
 		int x;
 		int y;
-		for (int i = 0; i < dimx; i++) {
-			for (int j = 0; j < dimy; j++) {
+		for (int i = 0; i < dim; i++) {
+			for (int j = 0; j < dim; j++) {
 
 				x = j * 30;
 				y = i * 30;
 
 				if (xClicked > x && xClicked < x + 30 && yClicked > y && yClicked < y + 30) {
-					tlevel.getMap()[j][i] = icons[currentIcon];
+					tlevel.getMap()[i][j] = icons[currentIcon];
 					repaint();
 					// if (canPaintMap(i, j)) {
 					// map[i][j] = symbolchosenPicture;
@@ -412,6 +425,29 @@ public class MapPanel extends JPanel implements MouseListener {
 		}
 	}
 
+	public char[][] generateMap(int dimx, int dimy) {
+		char[][] mapa = new char[dimy][dimx];
+		
+		for (int i = 0; i < mapa.length; i++) {
+			for (int j = 0; j < mapa[i].length; j++) {
+				if(i==0||j==0||i==mapa.length-1||j==mapa[i].length-1)
+				mapa[i][j] = 'X';
+				else mapa[i][j] = ' ';
+//				System.out.println(dimy + " dim" + dimx);
+//				System.out.println(mapa[i][j]);
+			}
+		}
+		
+//		for (int i = 0; i < dimx; i++) {							
+//			for (int j = 0; j < dimy; j++) {
+//				System.out.print(mapa[i][j]);
+//			}
+//			System.out.println();
+//		 }
+		
+		return mapa;
+	}
+	
 	// public boolean inside
 	@Override
 	public void mouseEntered(MouseEvent e) {

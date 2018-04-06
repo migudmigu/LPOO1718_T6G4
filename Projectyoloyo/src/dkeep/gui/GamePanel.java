@@ -23,6 +23,11 @@ public class GamePanel extends JPanel implements KeyListener{
 //	char[][] map;
 	private JTextField textField;
 
+	/**
+	 * kj
+	 * @param gamedata 
+	 * @param statemachine
+	 */
 	public GamePanel(GameData gamedata, StateMachine statemachine) {
 		this.gamedata=gamedata;
 //		this.game = null;
@@ -41,6 +46,9 @@ public class GamePanel extends JPanel implements KeyListener{
 		add(btnExit);
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 
@@ -51,6 +59,8 @@ public class GamePanel extends JPanel implements KeyListener{
 		if (gamedata.game != null) {
 			for (int i = 0; i < gamedata.game.getMapArray().length; i++) {
 				for (int j = 0; j < gamedata.game.getMapArray()[i].length; j++) {
+					System.out.println("test j:"+ j);
+					System.out.println("test i:"+ i);
 					if (gamedata.game.getMapArray()[j][i] == 'X') {
 						g.drawImage(gamedata.wall, i * 30, j * 30, 30, 30, this);
 						continue;
@@ -134,11 +144,9 @@ public class GamePanel extends JPanel implements KeyListener{
 		}
 	}
 	
-	public void paintBackground(Graphics g,Color c) {
-		g.setColor(c);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-	}
-	
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (gamedata.game.gameOver != 1) {
@@ -187,6 +195,10 @@ public class GamePanel extends JPanel implements KeyListener{
 //		repaint();
 //	}
 	
+	/**
+	 * @param key
+	 * @throws IOException
+	 */
 	public void checkButtons(char key) throws IOException {
 		gamedata.game.handler(key);
 		gamedata.setHeroDirection(key);
@@ -200,12 +212,21 @@ public class GamePanel extends JPanel implements KeyListener{
 		repaint();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {}
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#requestFocus()
+	 */
 	public void requestFocus() {
 		this.requestFocusInWindow();
 	}

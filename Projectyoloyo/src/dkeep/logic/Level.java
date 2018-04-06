@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class Level {
 	
+	int numOgres=0;
+	
 	public Level(int l) {
 		if(l==1) {
 		map = map1.clone();
@@ -13,14 +15,7 @@ public class Level {
 			map = map2.clone();
 			for (int i = 0; i < map2.length; i++)
 				this.map[i] = map2[i].clone();
-			
 		}
-	}
-	
-	public Level(char[][] map) {
-		this.map = map.clone();
-		for (int i = 0; i < map.length; i++) {
-			this.map[i] = map[i].clone();}
 	}
 	
 	public Level() {
@@ -72,6 +67,8 @@ public class Level {
 //	{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 //	{ 'X', 'K', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, 
 //	{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+	
+	
 	public void setCell(int x, int y, char symbol) {
 		map[x][y] = symbol;
 	}
@@ -89,7 +86,7 @@ public class Level {
 	}
 	
 	public void setOgres(int n) {
-
+//		this.numOgres = n;
 		Random r = new Random();
 		int x;
 		int y;
