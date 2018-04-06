@@ -18,16 +18,11 @@ public class SuspiciousGuard extends Guard {
 	}
 
 	public void moveSuspiciousGuard(char[][] map) {
-
 		reversePatrol();
 		if (reverse) {
-
 			downPathSteps();
 			moveCharacter(inverseMovement(guardpath[pathStep]), map);
 		} else {
 			updateDirection(guardpath[pathStep]);
 			moveCharacter(guardpath[pathStep], map);
-			upPathSteps();
-		}
-	}
-}
+			upPathSteps();}}}

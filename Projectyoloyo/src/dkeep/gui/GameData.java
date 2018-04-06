@@ -15,25 +15,8 @@ public class GameData {
 	Game game;
 	String personality;
 	int numOgres;
-	BufferedImage hero;
-	BufferedImage wall;
-	BufferedImage floor;
-	BufferedImage VDoor;
-	BufferedImage HDoor;
-	BufferedImage guard;
-	BufferedImage lever;
-	BufferedImage ogre;
-	BufferedImage ogrestunned;
-	BufferedImage club;
-	BufferedImage key;
-	ImageIcon wallicon;
-	ImageIcon dooricon;
-	ImageIcon ogreicon;
-	ImageIcon keyicon;
-	ImageIcon heroicon;
-	ImageIcon flooricon;
-	
-	
+	BufferedImage hero, wall, floor, VDoor, HDoor, guard, lever, ogre, ogrestunned, club, key;
+	ImageIcon wallicon, dooricon, ogreicon, keyicon, heroicon, flooricon;
 	public Level[] levels;
 	int lvlcount = 0;
 	
@@ -95,25 +78,21 @@ public class GameData {
 	}
 	
 	public void setHeroDirection(char key) throws IOException {
-		switch(key) {
-		case 'w':{this.hero = ImageIO.read(new File("Images/hero.png"));
-		if(game.getHero().getHaskey())
-			this.hero = ImageIO.read(new File("Images/heroKey.png"));
-		break;}
-		case 'a':this.hero = ImageIO.read(new File("Images/heroLeft.png")); break;
-		case 's':this.hero = ImageIO.read(new File("Images/heroDown.png")); break;
-		case 'd':this.hero = ImageIO.read(new File("Images/heroRight.png")); break;
+		switch (key) {
+		case 'w':
+			this.hero = ImageIO.read(new File("Images/hero.png"));
+			if (game.getHero().getHaskey()) this.hero = ImageIO.read(new File("Images/heroKey.png")); break;
+		case 'a':
+			this.hero = ImageIO.read(new File("Images/heroLeft.png"));
+			break;
+		case 's':
+			this.hero = ImageIO.read(new File("Images/heroDown.png"));
+			break;
+		case 'd':
+			this.hero = ImageIO.read(new File("Images/heroRight.png"));
+			break;
 		}
 	}
-	
-//	public void setOgreStun() throws IOException {
-//		for(int i = 0 ; i < game.getOgres().length ; i++) {
-//			if(game.getOgres()[i] != null && game.getOgres()[i].getStunned()) 
-//				this.ogre = ImageIO.read(new File("Images/OgreStunned.png"));
-//			else 	this.ogre = ImageIO.read(new File("Images/Ogre.png"));
-//
-//		}
-//	}
 	
 	public void setGuardDirection(char key) throws IOException {
 		if (guard != null) {

@@ -19,35 +19,24 @@ public class Ogre extends Character {
 	}
 
 	public void moveOgre(char[][] map) {
-
 		if (!stunned)
 			moveCharacter(moves[randomNumber()], map);
 		else
 			increaseStunnedTurns();
-
-		possibleClubPos(map);
-	}
+		possibleClubPos(map);}
 
 	public void increaseStunnedTurns() {
-
 		stunnedTurns++;
 		if (stunnedTurns > 2) {
-
 			stunned = false;
-			stunnedTurns = 0;
-		}
-	}
+			stunnedTurns = 0;}}
 	
 	public void stunOgre() {
-		
 		stunned = true;
-		stunnedTurns = 0;
-	}
+		stunnedTurns = 0;}
 
 	public void moveClub() {
-
 		switch (randomNumber()) {
-
 		case 0:
 			clubX = this.x + 1;
 			clubY = this.y;
@@ -63,22 +52,13 @@ public class Ogre extends Character {
 		case 3:
 			clubX = this.x;
 			clubY = this.y - 1;
-			break;
-		}
-	}
+			break;}}
 
 	public void possibleClubPos(char[][] map) {
-
 		moveClub();
-
 		while (true) {
-
-			if (map[clubX][clubY] != 'X' && map[clubX][clubY] != 'I') {
-				break;
-			} else
-				moveClub();
-		}
-	}
+			if (map[clubX][clubY] != 'X' && map[clubX][clubY] != 'I')break;
+			else moveClub();}}
 
 	public int randomNumber() {
 		r = new Random();
@@ -87,12 +67,10 @@ public class Ogre extends Character {
 	}
 
 	public int getClubX() {
-
 		return clubX;
 	}
 
 	public int getClubY() {
-
 		return clubY;
 	}
 	

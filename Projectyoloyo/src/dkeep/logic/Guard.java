@@ -4,10 +4,8 @@ import java.util.Random;
 
 public class Guard extends Character {
 	protected int pathStep = 0;
-	protected char[] guardpath = { 'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd',
-			'd', 'd', 'w', 'w', 'w', 'w', 'w' };
-	protected boolean asleep;
-	protected boolean reverse;
+	protected char[] guardpath = {'a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
+	protected boolean asleep, reverse;
 	protected char direction;
 	Random r;
 
@@ -18,54 +16,37 @@ public class Guard extends Character {
 	}
 
 	public void upPathSteps() {
-
-		if (pathStep == guardpath.length - 1)
-			pathStep = 0;
-		else
-			pathStep++;
-	}
+		if (pathStep == guardpath.length - 1)pathStep = 0;
+		else pathStep++;}
 	
 	public void downPathSteps() {
-
-		if (pathStep == 0)
-			pathStep = guardpath.length - 1;
-		else
-			pathStep--;
-	}
+		if (pathStep == 0)	pathStep = guardpath.length - 1;
+		else pathStep--;}
 	
 	public void setReverse() {
-
-		if (reverse)
-			reverse = false;
-		else
-			reverse = true;
-	}
+		if (reverse) reverse = false;
+		else reverse = true;}
 	
 	public char inverseMovement(char mov) {
-
-		if (mov == 'a') {
+		switch (mov) {
+		case 'a':
 			updateDirection('d');
 			return 'd';
-		}
-		else if (mov == 'd') {
+		case 'd':
 			updateDirection('a');
 			return 'a';
-		}
-		else if (mov == 'w') {
+		case 'w':
 			updateDirection('s');
 			return 's';
-		}
-		else {
+		case 's':
 			updateDirection('w');
 			return 'w';
-		}
-	}	
-	
+		default:
+			return ' ';	}}
+
 	public void moveGuard(char[][] map) {
-		if(this instanceof DrunkenGuard)
-		((DrunkenGuard)this).moveDrunkenGuard(map);
-		else if(this instanceof SuspiciousGuard)
-			((SuspiciousGuard)this).moveSuspiciousGuard(map);
+		if(this instanceof DrunkenGuard) ((DrunkenGuard)this).moveDrunkenGuard(map);
+		else if(this instanceof SuspiciousGuard) ((SuspiciousGuard)this).moveSuspiciousGuard(map);
 		else ((RookieGuard)this).moveRookieGuard(map);
 	}
 	

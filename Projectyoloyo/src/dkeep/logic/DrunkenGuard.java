@@ -5,43 +5,38 @@ import java.util.Random;
 public class DrunkenGuard extends Guard {
 
 	public DrunkenGuard(int x, int y, char symbol) {
-		super(x, y, symbol);
-	}
+		super(x, y, symbol);}
 
 	public boolean getAsleep() {
-
-		return asleep;
-	}
+		return asleep;}
 
 	public void fallAsleep() {
 
 		r = new Random();
 		int i = r.nextInt(5);
 
-		if (i == 0) {
-			
+		switch(i) {
+		case 0:			
 			setReverse();
 			asleep = true;
 			this.setSymbol('g');
-		} else if (i == 1) {
-
+			break;
+		case 1:
 			asleep = true;
 			this.setSymbol('g');
-		} else {
-
+			break;
+		default:
 			asleep = false;
 			this.setSymbol('G');
+			break;
 		}
 	}
 
 	public void moveDrunkenGuard(char[][] map) {
 
 		fallAsleep();
-
 		if (!asleep) {
-
 			if (reverse) {
-
 				downPathSteps();
 				moveCharacter(inverseMovement(guardpath[pathStep]), map);
 			} else {

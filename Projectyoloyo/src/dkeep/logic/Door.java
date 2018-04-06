@@ -7,20 +7,15 @@ public class Door extends Object{
 
 	public Door(int x, int y, char symbol) {
 		super(x, y, symbol);
-		opened=false;
-	}
+		opened=false;}
 	
 	public void setOpenable() {
-		this.openable=true;
-	}
+		this.openable=true;}
 	
 	public void openDoor() {
 		opened=!opened;
-		System.out.println(opened + "test");
-	}
+		System.out.println(opened + "test");}
 	
 	public boolean getOpened() {
-		return this.opened;
-	}
-	
+		return this.opened;}
 }

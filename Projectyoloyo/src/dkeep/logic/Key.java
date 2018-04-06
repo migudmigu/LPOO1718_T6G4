@@ -8,13 +8,4 @@ public class Key extends Object{
 		super(x, y, symbol);
 		this.symbol='K';
 	}
-	
-	public void triggerKey() {								//not needed
-		triggered=!triggered;
-	}
-	
-	public boolean getTriggered() {							//not needed
-		return this.triggered;
-	}
-	
 }

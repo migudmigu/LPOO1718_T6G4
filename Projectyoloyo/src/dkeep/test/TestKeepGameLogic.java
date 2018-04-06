@@ -8,6 +8,11 @@ import dkeep.logic.*;
 
 public class TestKeepGameLogic {
 
+	Game game;
+	public void initialize(char[][] map) {
+		game = new Game();
+		game.setMap(map);
+	}
 	char[][] testKeepMap = { 
 			{ 'X', 'X', 'X', 'X', 'X', 'X' }, 
 			{ 'X', 'H', ' ', ' ', ' ', 'X' },
@@ -18,9 +23,7 @@ public class TestKeepGameLogic {
 
 	@Test
 	public void testHeroIsKilledByOgre() {
-
-		Game game = new Game();
-		game.setMap(testKeepMap);
+		initialize(testKeepMap);
 		game.getHero().moveHero('d', testKeepMap, game);
 		game.getHero().moveHero('d', testKeepMap, game);
 		game.getHero().moveHero('s', testKeepMap, game);
@@ -30,10 +33,8 @@ public class TestKeepGameLogic {
 	
 	@Test
 	public void testHeroGetsKey() {
-
-		Game game = new Game();
+		initialize(testKeepMap);
 		game.currentlvli = 2;
-		game.setMap(testKeepMap);
 		assertEquals('H', game.getHero().getSymbol());
 		game.getHero().moveHero('s', testKeepMap, game);
 		game.getHero().moveHero('s', testKeepMap, game);
@@ -45,10 +46,8 @@ public class TestKeepGameLogic {
 
 	@Test
 	public void testHeroTriesToLeaveWithoutKey() {
-
-		Game game = new Game();
+		initialize(testKeepMap);
 		game.currentlvli = 2;
-		game.setMap(testKeepMap);
 		game.getHero().moveHero('s', testKeepMap, game);
 		game.getHero().moveHero('s', testKeepMap, game);
 		game.getHero().moveHero('s', testKeepMap, game);
@@ -70,8 +69,7 @@ public class TestKeepGameLogic {
 		game.checkColisionKey();
 		game.getHero().moveHero('a', testKeepMap, game);
 		game.getHero().moveHero('a', testKeepMap, game);
-		assertEquals('s', testKeepMap[4][0]);
-	}
+		assertEquals('s', testKeepMap[4][0]);}
 	
 	@Test
 	public void testHeroWinGame() {
@@ -87,7 +85,5 @@ public class TestKeepGameLogic {
 		game.checkColisionKey();
 		game.getHero().moveHero('a', testKeepMap, game);
 		game.getHero().moveHero('a', testKeepMap, game);
-		assertEquals('s', testKeepMap[4][0]);
-		
-	}
+		assertEquals('s', testKeepMap[4][0]);}
 }

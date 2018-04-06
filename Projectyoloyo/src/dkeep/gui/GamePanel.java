@@ -19,8 +19,6 @@ import java.awt.event.ActionEvent;
 
 public class GamePanel extends JPanel implements KeyListener{
 	GameData gamedata;
-//	Game game;
-//	char[][] map;
 	private JTextField textField;
 
 	/**
@@ -30,8 +28,6 @@ public class GamePanel extends JPanel implements KeyListener{
 	 */
 	public GamePanel(GameData gamedata, StateMachine statemachine) {
 		this.gamedata=gamedata;
-//		this.game = null;
-//		this.map = null;
 		addKeyListener(this);
 		setLayout(null);
 		
@@ -52,8 +48,7 @@ public class GamePanel extends JPanel implements KeyListener{
 	@Override
 	public void paintComponent(Graphics g) {
 
-		super.paintComponent(g); // limpa fundo ...
-//		paintBackground(g, Color.white);
+		super.paintComponent(g);
 		boolean doorflag = false;
 		
 		if (gamedata.game != null) {
