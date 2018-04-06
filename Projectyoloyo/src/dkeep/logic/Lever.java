@@ -1,12 +1,12 @@
 package dkeep.logic;
 
-public class Key extends Object{
-
+public class Lever extends Object{
+	
 	boolean triggered;
 
-	public Key(int x, int y,char symbol) {
+	public Lever(int x, int y,char symbol) {
 		super(x, y, symbol);
-		this.symbol='K';
+		this.symbol='k';
 	}
 	
 	public void triggerKey() {
@@ -16,5 +16,5 @@ public class Key extends Object{
 	public boolean getTriggered() {
 		return this.triggered;
 	}
-	
+
 }

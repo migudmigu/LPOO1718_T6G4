@@ -7,6 +7,7 @@ public class Game {
 	public int gameOver = 0;
 //	public int levNum = 1;
 	public boolean doorsOpened = false;
+	Lever lever;
 	Key key;
 	Hero hero;
 	Guard guard;
@@ -54,7 +55,9 @@ public class Game {
 					numOgres++;
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'k') {
-					key = new Key(i,k,'k');
+					lever = new Lever(i,k,'k');
+				} else if (level.map[i][k] == 'K') {
+					key = new Key(i,k,'K');
 				} else if (level.map[i][k] == 'I') {
 					doors[nmrDoors] = new Door(i,k,'I');
 					nmrDoors++;
@@ -159,13 +162,13 @@ public class Game {
 	public void checkColisionKey() {
 
 		if (currentlvli == 1) {
-			if (hero.getX() == key.getX() && hero.getY() == key.getY()) {
-				key.triggerKey();			// NECESSARIO?
+			if (hero.getX() == lever.getX() && hero.getY() == lever.getY()) {
+				lever.triggerKey();			// NECESSARIO?
 				openDoors();
 			}
 		} else if (currentlvli == 2) {
 			if (hero.getX() == key.getX() && hero.getY() == key.getY()) {
-				hero.setSymbol('K');
+				hero.setHaskey();
 				level.map[key.getX()][key.getY()] = ' ';
 			}
 
@@ -357,6 +360,10 @@ public class Game {
 		return guard;
 	}
 	
+	public Lever getLever() {
+		return lever;
+	}
+
 	public Key getKey() {
 		return key;
 	}

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 import javax.print.attribute.standard.PrinterLocation;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -20,14 +21,15 @@ import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JSlider;
+import java.awt.Color;
 
-public class MapPanel extends JPanel implements MouseListener{
+public class MapPanel extends JPanel implements MouseListener {
 	private JTextField textField;
 	private JTextField textField_1;
 	private int dimx = 5;
 	private int dimy = 5;
 	private GameData gamedata;
-//	Level level;
+	// Level level;
 	private JComboBox comboBox;
 	private JButton btnNewButton;
 	private JSlider slider;
@@ -35,83 +37,97 @@ public class MapPanel extends JPanel implements MouseListener{
 	private Level tlevel;
 	private Level[] tlevels = new Level[10];
 	private int tlvlcount = 2;
-	
+	private JLabel label;
+	private JLabel label_1;
+	private JLabel label_2;
+	private JLabel label_3;
+	private JLabel label_4;
+	private JLabel label_5;
+	private JLabel label_6;
+	private char[] icons = { 'X', 'I', 'H', 'O', 'K' , ' '};
+	private int currentIcon;
+	private int xClicked;
+	private int yClicked;
+	private JLabel label_7;
+
 	class SliderListener implements ChangeListener {
-	    public void stateChanged(ChangeEvent e) {
-	    	dimy = slider.getValue();
-	    	updateMapDim();
-	    }
+		public void stateChanged(ChangeEvent e) {
+			dimy = slider.getValue();
+			updateMapDim();
+		}
 	}
-	
+
 	class SliderListener2 implements ChangeListener {
-	    public void stateChanged(ChangeEvent e) {
-	    	dimx = slider_1.getValue();
-	    	updateMapDim();
-	        }    
+		public void stateChanged(ChangeEvent e) {
+			dimx = slider_1.getValue();
+			updateMapDim();
+		}
 	}
-	
+
 	/**
 	 * Create the panel.
-	 * @param gamedata 
-	 * @param statemachine 
+	 * 
+	 * @param gamedata
+	 * @param statemachine
 	 */
 	public MapPanel(StateMachine statemachine, GameData gamedata) {
 		setLayout(null);
-		this.gamedata=gamedata;
+		this.gamedata = gamedata;
 		tlevels[0] = gamedata.levels[0];
 		tlevels[1] = gamedata.levels[1];
 		tlevel = tlevels[0];
-		
-		
-//		JLabel lblDimension = new JLabel("Dimension:          x");
-//		lblDimension.setBounds(12, 351, 162, 15);
-//		add(lblDimension);
-		
-//		textField = new JTextField();
-//		textField.setBounds(99, 347, 24, 19);
-//		add(textField);
-//		textField.setColumns(10);
-//		textField.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				dimy= Integer.parseInt(textField.getText());
-//			}
-//		});
-		
-//		textField_1 = new JTextField();
-//		textField_1.setColumns(10);
-//		textField_1.setBounds(150, 347, 24, 19);
-//		add(textField_1);
-//		textField_1.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				dimx = Integer.parseInt(textField_1.getText());
-//			}
-//		});
-		
-//		JButton btnEn = new JButton("Gen");
-//		btnEn.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-////				dimy = Integer.parseInt(textField.getText());
-//////				dimx = Integer.parseInt(textField_1.getText());
-////				if(dimy != 0 && dimy != 0)
-////					btnNewButton.setEnabled(true);
-//					
-//				
-//			}
-//		});
-//		btnEn.setBounds(186, 346, 62, 25);
-//		add(btnEn);
-		
+
+		addMouseListener(this);
+
+		// JLabel lblDimension = new JLabel("Dimension: x");
+		// lblDimension.setBounds(12, 351, 162, 15);
+		// add(lblDimension);
+
+		// textField = new JTextField();
+		// textField.setBounds(99, 347, 24, 19);
+		// add(textField);
+		// textField.setColumns(10);
+		// textField.addActionListener(new ActionListener() {
+		// public void actionPerformed(ActionEvent arg0) {
+		// dimy= Integer.parseInt(textField.getText());
+		// }
+		// });
+
+		// textField_1 = new JTextField();
+		// textField_1.setColumns(10);
+		// textField_1.setBounds(150, 347, 24, 19);
+		// add(textField_1);
+		// textField_1.addActionListener(new ActionListener() {
+		// public void actionPerformed(ActionEvent arg0) {
+		// dimx = Integer.parseInt(textField_1.getText());
+		// }
+		// });
+
+		// JButton btnEn = new JButton("Gen");
+		// btnEn.addActionListener(new ActionListener() {
+		// public void actionPerformed(ActionEvent arg0) {
+		//// dimy = Integer.parseInt(textField.getText());
+		////// dimx = Integer.parseInt(textField_1.getText());
+		//// if(dimy != 0 && dimy != 0)
+		//// btnNewButton.setEnabled(true);
+		//
+		//
+		// }
+		// });
+		// btnEn.setBounds(186, 346, 62, 25);
+		// add(btnEn);
+
 		comboBox = new JComboBox();
 		comboBox.setBounds(378, 32, 44, 24);
 		add(comboBox);
-		
+
 		comboBox.addItem(1);
 		comboBox.addItem(2);
-		
+
 		JLabel lblLevel = new JLabel("Level:");
 		lblLevel.setBounds(318, 37, 70, 15);
 		add(lblLevel);
-		
+
 		btnNewButton = new JButton("Create Level");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -119,22 +135,20 @@ public class MapPanel extends JPanel implements MouseListener{
 				btnNewButton.setEnabled(false);
 			}
 		});
-		
-		
+
 		btnNewButton.setBounds(328, 68, 123, 25);
 		add(btnNewButton);
-		
+
 		JButton btnDone = new JButton("Done");
 		btnDone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				statemachine.updateState(Action.CLOSE_CUSTOM);
-				gamedata.levels=tlevels;
-//				gamedata.game.addLevel(level.getMap());
+				// gamedata.game.addLevel(level.getMap());
 			}
 		});
 		btnDone.setBounds(358, 366, 79, 25);
 		add(btnDone);
-		
+
 		slider = new JSlider();
 		slider.setPaintTicks(true);
 		slider.setValue(5);
@@ -144,7 +158,7 @@ public class MapPanel extends JPanel implements MouseListener{
 		add(slider);
 		slider.addChangeListener(new SliderListener());
 		slider.setEnabled(false);
-		
+
 		slider_1 = new JSlider(JSlider.VERTICAL);
 		slider_1.setMaximum(10);
 		slider_1.setValue(5);
@@ -153,78 +167,114 @@ public class MapPanel extends JPanel implements MouseListener{
 		add(slider_1);
 		slider_1.addChangeListener(new SliderListener2());
 		slider_1.setEnabled(false);
-		
+
 		JButton btnSaveLevel = new JButton("Save Level");
 		btnSaveLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				btnNewButton.setEnabled(true);
+//				if(checkValidMap())
+				gamedata.levels = tlevels;
+//				else label_6.setText("Map not valid");
 			}
 		});
 		btnSaveLevel.setBounds(338, 329, 113, 25);
 		add(btnSaveLevel);
 
-		comboBox.addActionListener (new ActionListener () {
-		    public void actionPerformed(ActionEvent e) {
-		    	if(comboBox.getSelectedIndex() > 1) {
-		    		slider.setEnabled(true);
-		    		slider_1.setEnabled(true);
-		    		} else {
-			    		slider.setEnabled(false);
-			    		slider_1.setEnabled(false);
-		    		}
-		    	tlevel = tlevels[comboBox.getSelectedIndex()];
-//		    	level=gamedata.levels[comboBox.getSelectedIndex()];
-		    	repaint();
-		    }
-		});
+		label = new JLabel("1");
+		label.setBackground(Color.BLACK);
+		label.setBounds(337, 155, 30, 30);
+		add(label);
+		label.setVisible(true);
+
+		label_1 = new JLabel("2");
+		label_1.setBackground(Color.GRAY);
+		label_1.setBounds(379, 155, 30, 30);
+		add(label_1);
+
+		label_2 = new JLabel("3");
+		label_2.setBackground(Color.GRAY);
+		label_2.setBounds(421, 155, 30, 30);
+		add(label_2);
+
+		label_3 = new JLabel("4");
+		label_3.setBackground(Color.GRAY);
+		label_3.setBounds(338, 217, 30, 30);
+		add(label_3);
+
+		label_4 = new JLabel("5");
+		label_4.setBackground(Color.GRAY);
+		label_4.setBounds(378, 217, 30, 30);
+		add(label_4);
+
+		label_5 = new JLabel("6");
+		label_5.setBackground(Color.GRAY);
+		label_5.setBounds(421, 217, 30, 30);
+		add(label_5);
 		
-//		level = gamedata.levels[0];
-//		this.repaint();
+		label_6 = new JLabel("");
+		label_6.setBounds(378, 259, 30, 30);
+		add(label_6);
+
+		loadIcons();
+
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboBox.getSelectedIndex() > 1) {
+					slider.setEnabled(true);
+					slider_1.setEnabled(true);
+				} else {
+					slider.setEnabled(false);
+					slider_1.setEnabled(false);
+				}
+				tlevel = tlevels[comboBox.getSelectedIndex()];
+				// level=gamedata.levels[comboBox.getSelectedIndex()];
+				repaint();
+			}
+		});
+
+		// level = gamedata.levels[0];
+		// this.repaint();
 	}
 
 	public void addLevelBox(Level level) {
-		
+
 		level = new Level();
 		level.setMap(gamedata.generateMap(dimx, dimy));
 		addLevel(level);
 		comboBox.addItem(tlvlcount);
-//		gamedata.addLevel(level);
-//		comboBox.addItem(gamedata.getLevelCount());
+		// gamedata.addLevel(level);
+		// comboBox.addItem(gamedata.getLevelCount());
 		repaint();
-		
+
 	}
-	
+
 	public void updateMapDim() {
 		tlevel.setMap(gamedata.generateMap(dimx, dimy));
 		repaint();
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		paintTools(g);
-		paintLevel(g,tlevel);
-		
+
+		paintLevel(g, tlevel);
+
 	}
 
 	public void paintLevel(Graphics g, Level level) {
 
-		System.out.println("test2");
-		
 		boolean doorflag = false;
-		
+
 		if (level != null) {
 			System.out.println("test");
-			if(level.getMap() != null)
+			if (level.getMap() != null)
 				System.out.println("test4");
 
-			
-			for (int i=0; i < level.getMap().length; i++) {
+			for (int i = 0; i < level.getMap().length; i++) {
 				for (int j = 0; j < level.getMap()[i].length; j++) {
-					System.out.println(i +"  " + j);
+					System.out.println(i + "  " + j);
 					if (level.getMap()[i][j] == 'X') {
-						
+
 						g.drawImage(gamedata.wall, i * 30, j * 30, 30, 30, this);
 						continue;
 					}
@@ -247,67 +297,139 @@ public class MapPanel extends JPanel implements MouseListener{
 					// }
 
 					if (level.getMap()[i][j] == 'k') {
+						g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
 						g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
+						continue;
 					}
 					
+					if (level.getMap()[i][j] == 'K') {
+						g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
+						g.drawImage(gamedata.key, i * 30, j * 30, 30, 30, this);
+						continue;
+					}
+					
+					if (level.getMap()[i][j] == 'H') {
+						g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
+						g.drawImage(gamedata.hero, i * 30, j * 30, 30, 30, this);
+						continue;
+					}
+					
+					if (level.getMap()[i][j] == 'O') {
+						g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
+						g.drawImage(gamedata.ogre, i * 30, j * 30, 30, 30, this);
+						continue;
+					}
+
 					g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
 
 				}
 			}
 		}
 	}
-	
-	public void paintTools(Graphics g) {
-//		g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
-//		g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
-//		g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
-//		g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
-//		g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
-//		g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
-//		g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
-//
-//		BufferedImage hero;
-//		BufferedImage wall;
-//		BufferedImage floor;
-//		BufferedImage VDoor;
-//		BufferedImage HDoor;
-//		BufferedImage guard;
-//		BufferedImage lever;
+
+	public void loadIcons() {
+		label.setIcon(gamedata.wallicon);
+		label_1.setIcon(gamedata.dooricon);
+		label_2.setIcon(gamedata.heroicon);
+		label_3.setIcon(gamedata.ogreicon);
+		label_4.setIcon(gamedata.keyicon);
+		label_5.setIcon(gamedata.flooricon);
+
+		// g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
+		// g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
+		// g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
+		// g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
+		// g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
+		// g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
+		// g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
+		//
+		// BufferedImage hero;
+		// BufferedImage wall;
+		// BufferedImage floor;
+		// BufferedImage VDoor;
+		// BufferedImage HDoor;
+		// BufferedImage guard;
+		// BufferedImage lever;
 	}
-	
+
 	public void addLevel(Level level) {
-		this.tlevels[tlvlcount]=level;
+		this.tlevels[tlvlcount] = level;
 		this.tlvlcount++;
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		
-		
+	public void drawMap() {
+		int x;
+		int y;
+		for (int i = 0; i < dimx; i++) {
+			for (int j = 0; j < dimy; j++) {
+
+				x = j * 30;
+				y = i * 30;
+
+				if (xClicked > x && xClicked < x + 30 && yClicked > y && yClicked < y + 30) {
+					tlevel.getMap()[j][i] = icons[currentIcon];
+					repaint();
+					// if (canPaintMap(i, j)) {
+					// map[i][j] = symbolchosenPicture;
+					// repaint();
+					// }
+				}
+			}
+		}
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseClicked(MouseEvent e) {
+		if (comboBox.getSelectedIndex() > 1) {
+			xClicked = e.getX();
+			yClicked = e.getY();
+			if (e.getX() > label.getX() && e.getX() < label.getX() + label.getWidth() && e.getY() > label.getY()
+					&& e.getY() < label.getY() + label.getHeight()) {
+				currentIcon = 0;
+			} else if (e.getX() > label_1.getX() && e.getX() < label_1.getX() + label_1.getWidth() && e.getY() > label_1.getY()
+					&& e.getY() < label_1.getY() + label_1.getHeight()) {
+				currentIcon = 1;
+			} else if (e.getX() > label_2.getX() && e.getX() < label_2.getX() + label_2.getWidth() && e.getY() > label_2.getY()
+					&& e.getY() < label_2.getY() + label_2.getHeight()) {
+				currentIcon = 2;
+			} else if (e.getX() > label_3.getX() && e.getX() < label_3.getX() + label_3.getWidth() && e.getY() > label_3.getY()
+					&& e.getY() < label_3.getY() + label_3.getHeight()) {
+				currentIcon = 3;
+			} else if (e.getX() > label_4.getX() && e.getX() < label_4.getX() + label_4.getWidth() && e.getY() > label_4.getY()
+					&& e.getY() < label_4.getY() + label_4.getHeight()) {
+				currentIcon = 4;
+			} else if (e.getX() > label_5.getX() && e.getX() < label_5.getX() + label_5.getWidth() && e.getY() > label_5.getY()
+					&& e.getY() < label_5.getY() + label_5.getHeight()) {
+				currentIcon = 5;
+			}
+			drawMap();
+			for(int i = 0 ; i < tlevel.getMap().length; i++) {
+				for(int j = 0 ; j < tlevel.getMap()[i].length; j++) {
+					System.out.print(tlevel.getMap()[i][j]);
+				}
+				System.out.println();
+			}
+		}
+	}
+
+	// public boolean inside
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseExited(MouseEvent e) {
+
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mousePressed(MouseEvent e) {
+
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseReleased(MouseEvent e) {
+
 	}
 }
-

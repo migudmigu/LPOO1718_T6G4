@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import dkeep.logic.Game;
 import dkeep.logic.Level;
@@ -25,6 +26,13 @@ public class GameData {
 	BufferedImage ogrestunned;
 	BufferedImage club;
 	BufferedImage key;
+	ImageIcon wallicon;
+	ImageIcon dooricon;
+	ImageIcon ogreicon;
+	ImageIcon keyicon;
+	ImageIcon heroicon;
+	ImageIcon flooricon;
+	
 	public Level[] levels;
 	int lvlcount = 0;
 	
@@ -68,6 +76,12 @@ public class GameData {
 		this.ogrestunned = ImageIO.read(new File("Images/OgreStunned.png"));
 		this.club = ImageIO.read(new File("Images/Sawblade.png"));
 		this.key = ImageIO.read(new File("Images/key.png"));
+		this.wallicon = new ImageIcon("Images/wallicon.png");
+		this.dooricon = new ImageIcon("Images/dooricon.png");
+		this.keyicon = new ImageIcon("Images/keyicon.png");
+		this.heroicon = new ImageIcon("Images/heroicon.png");
+		this.flooricon = new ImageIcon("Images/flooricon.png");
+		this.ogreicon = new ImageIcon("Images/Ogreicon.png");
 	}
 	
 	public void addLevel(Level level) {
@@ -87,7 +101,10 @@ public class GameData {
 	
 	public void setHeroDirection(char key) throws IOException {
 		switch(key) {
-		case 'w':this.hero = ImageIO.read(new File("Images/hero.png"));break;
+		case 'w':{this.hero = ImageIO.read(new File("Images/hero.png"));
+		if(game.getHero().getHaskey())
+			this.hero = ImageIO.read(new File("Images/heroKey.png"));
+		break;}
 		case 'a':this.hero = ImageIO.read(new File("Images/heroLeft.png")); break;
 		case 's':this.hero = ImageIO.read(new File("Images/heroDown.png")); break;
 		case 'd':this.hero = ImageIO.read(new File("Images/heroRight.png")); break;
@@ -123,8 +140,7 @@ public class GameData {
 	}
 	
 	public void setLeverDirection() throws IOException {
-		
-		if(game.getKey().getTriggered())
+		if(game.getLever().getTriggered())
 		this.lever = ImageIO.read(new File("Images/Lever2.png"));
 		else this.lever = ImageIO.read(new File("Images/Lever.png"));
 	}

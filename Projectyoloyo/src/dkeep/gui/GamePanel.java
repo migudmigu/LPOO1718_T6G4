@@ -84,8 +84,8 @@ public class GamePanel extends JPanel implements KeyListener{
 //						continue;
 //					}
 					
-					if (gamedata.game.getKey() != null) {
-						if (j == gamedata.game.getKey().getX() && i == gamedata.game.getKey().getY()) {
+					if (gamedata.game.getLever() != null) {
+						if (j == gamedata.game.getLever().getX() && i == gamedata.game.getLever().getY()) {
 							g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
 							g.drawImage(gamedata.lever, i * 30, j * 30, 30, 30, this);
 							if (j == gamedata.game.getHero().getX() && i == gamedata.game.getHero().getY()) {
@@ -94,6 +94,11 @@ public class GamePanel extends JPanel implements KeyListener{
 							continue;
 						}
 					}
+						if (gamedata.game.getMapArray()[j][i]=='K') {
+							g.drawImage(gamedata.floor, i * 30, j * 30, 30, 30, this);
+							g.drawImage(gamedata.key, i * 30, j * 30, 30, 30, this);
+							continue;
+						}
 					if (j == gamedata.game.getHero().getX() && i == gamedata.game.getHero().getY()) {
 						g.drawImage(gamedata.floor,i * 30, j * 30, 30, 30, this);
 						g.drawImage(gamedata.hero,i * 30, j * 30, 30, 30, this);

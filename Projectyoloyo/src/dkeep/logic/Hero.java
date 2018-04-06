@@ -2,6 +2,8 @@ package dkeep.logic;
 
 public class Hero extends Character {
 
+	boolean haskey = false;
+	
 	public Hero(int x, int y, char symbol) {
 		super(x, y, symbol);
 	}
@@ -58,4 +60,12 @@ public class Hero extends Character {
 		}
 	}
 
+	public void setHaskey() {
+		this.setSymbol('K');
+		this.haskey=true;
+	}
+	
+	public boolean getHaskey() {
+		return haskey;
+	}
 }
