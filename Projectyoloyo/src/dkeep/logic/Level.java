@@ -3,7 +3,9 @@ package dkeep.logic;
 import java.util.Random;
 
 public class Level {
-
+	
+	int numOgres=0;
+	
 	public Level(int l) {
 		if (l == 1) {
 			map = map1.clone();
@@ -13,7 +15,6 @@ public class Level {
 			map = map2.clone();
 			for (int i = 0; i < map2.length; i++)
 				this.map[i] = map2[i].clone();
-
 		}
 	}
 
@@ -27,13 +28,19 @@ public class Level {
 			{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 			{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' }, { 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-
-	protected char map2[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-			{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', 'K', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-			{ 'X', 'A', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-
+	
+	protected char map2[][] = { 
+			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+			{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', 'K', 'X' }, 
+			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, 
+			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, 
+			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+			{ 'X', 'A', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, 
+			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+	
+	
 	public void setCell(int x, int y, char symbol) {
 		map[x][y] = symbol;
 	}
@@ -51,7 +58,6 @@ public class Level {
 	}
 
 	public void setOgres(int n) {
-
 		Random r = new Random();
 		int x;
 		int y;

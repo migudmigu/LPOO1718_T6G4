@@ -33,6 +33,7 @@ public class GameData {
 	ImageIcon heroicon;
 	ImageIcon flooricon;
 	
+	
 	public Level[] levels;
 	int lvlcount = 0;
 	
@@ -144,27 +145,5 @@ public class GameData {
 		this.lever = ImageIO.read(new File("Images/Lever2.png"));
 		else this.lever = ImageIO.read(new File("Images/Lever.png"));
 	}
-	
-	public char[][] generateMap(int dimx, int dimy) {
-		char[][] mapa = new char[dimy][dimx];
 		
-		for (int i = 0; i < mapa.length; i++) {
-			for (int j = 0; j < mapa[i].length; j++) {
-				if(i==0||j==0||i==mapa.length-1||j==mapa[i].length-1)
-				mapa[i][j] = 'X';
-				else mapa[i][j] = ' ';
-//				System.out.println(dimy + " dim" + dimx);
-//				System.out.println(mapa[i][j]);
-			}
-		 }
-		
-//		for (int i = 0; i < dimx; i++) {							
-//			for (int j = 0; j < dimy; j++) {
-//				System.out.print(mapa[i][j]);
-//			}
-//			System.out.println();
-//		 }
-		
-		return mapa;
-	}	
 }

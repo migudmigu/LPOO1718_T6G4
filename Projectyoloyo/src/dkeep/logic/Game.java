@@ -17,7 +17,7 @@ public class Game {
 	int lvlcount = 0;
 	Level level;
 	public int currentlvli=0;
-	int numOgres=0;
+//	int numOgres=0;
 
 	public Game() {
 		level = new Level(1);
@@ -37,7 +37,7 @@ public class Game {
 			for (int k = 0; k < level.map[i].length; k++) {
 
 				if (level.map[i][k] == 'H') {
-
+					
 					hero = new Hero(i, k, 'H');
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'A') {
@@ -49,9 +49,9 @@ public class Game {
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'O') {
 
-					ogre[numOgres] = new Ogre(i, k, 'O');
-					ogre[numOgres].possibleClubPos(level.map);
-					numOgres++;
+					ogre[level.numOgres] = new Ogre(i, k, 'O');
+					ogre[level.numOgres].possibleClubPos(level.map);
+					level.numOgres++;
 					level.eraseCell(i, k);
 				} else if (level.map[i][k] == 'k') {
 					lever = new Lever(i,k,'k');
@@ -66,7 +66,7 @@ public class Game {
 		checkIfDoorsOpenable();
 		printMap();
 	}
-
+	
 	public void setGuard(String personality) {
 		if (guard != null) {
 			if (personality == "Drunken") {
@@ -78,10 +78,6 @@ public class Game {
 		}
 	}
 	
-//	public void setOgres(int n) {
-//		
-//	}
-
 	public void handler(char key) {
 		
 		hero.moveHero(key, level.map, this);
@@ -159,7 +155,7 @@ public class Game {
 	}
 
 	public void checkColisionKey() {
-
+		System.out.println("test curent lvl:" + currentlvli);
 		if (currentlvli == 1) {
 			if (hero.getX() == lever.getX() && hero.getY() == lever.getY()) {
 				lever.triggerKey();
@@ -295,7 +291,7 @@ public class Game {
 	}
 	
 	public void setOgres(int n) {
-		numOgres=n;
+//		numOgres=n;
 		levels[1].setOgres(n);
 	}
 	
