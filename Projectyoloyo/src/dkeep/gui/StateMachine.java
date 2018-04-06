@@ -2,6 +2,10 @@ package dkeep.gui;
 
 import javax.swing.JPanel;
 
+/**	
+ * StateMachine Class
+ * Class where we implement a StateMachine to change between the Panels.
+ */
 public class StateMachine {
 
 	public State state;

@@ -2,6 +2,10 @@ package dkeep.logic;
 
 import java.util.Random;
 
+/**	
+ * DrunkenGuard Class
+ * Derived Class from the Class Guard. Represents the instance of the guard which is drunk.
+ */
 public class DrunkenGuard extends Guard {
 
 	/**

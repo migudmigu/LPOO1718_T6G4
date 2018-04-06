@@ -10,6 +10,10 @@ import javax.swing.ImageIcon;
 import dkeep.logic.Game;
 import dkeep.logic.Level;
 
+/**	
+ * GameData Class
+ * Class which has all the information used in the Graphic User Interface
+ */
 public class GameData {
 	
 	Game game;

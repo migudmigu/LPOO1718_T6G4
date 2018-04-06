@@ -1,5 +1,9 @@
 package dkeep.logic;
 
+/**	
+ * Character Class
+ * Superclass which has all the global functions related to the objects which are Characters (Hero, Guard, Ogre).
+ */
 public abstract class Character {
 
 	protected int x, y;

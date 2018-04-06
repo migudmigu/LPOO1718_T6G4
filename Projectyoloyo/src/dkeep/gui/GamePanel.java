@@ -17,6 +17,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**	
+ * GamePanel Class
+ * Class which is the whole panel where the game is displayed.
+ */
 public class GamePanel extends JPanel implements KeyListener{
 	GameData gamedata;
 	private JTextField textField;

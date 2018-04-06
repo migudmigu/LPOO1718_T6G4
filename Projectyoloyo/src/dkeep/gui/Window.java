@@ -23,6 +23,10 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Graphics;
 
+/**	
+ * Window Class
+ * Class which has the main frame of the Graphic User Interface
+ */
 public class Window {
 	
 	public GameData gamedata;
@@ -39,8 +43,6 @@ public class Window {
 	private JButton btnRight;
 	private JButton btnLeft;
 	private JButton btnDown;
-//	JTextArea textArea;
-//	private Game game;
 
 	/**
 	 * Launch the application.

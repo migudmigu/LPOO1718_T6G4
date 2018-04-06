@@ -1,5 +1,9 @@
 package dkeep.logic;
 
+/**	
+ * Hero Class
+ * Has all the functions needed for the user to be able to play and move the Hero.
+ */
 public class Hero extends Character {
 
 	boolean haskey = false;

@@ -2,6 +2,10 @@ package dkeep.logic;
 
 import java.util.Random;
 
+/**	
+ * RookieGuard Class
+ * Derived Class from the Class Guard. Represents the instance of the guard which is a rookie.
+ */
 public class RookieGuard extends Guard{
 	
 	/**

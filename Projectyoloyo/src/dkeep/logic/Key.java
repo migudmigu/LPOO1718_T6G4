@@ -1,5 +1,9 @@
 package dkeep.logic;
 
+/**	
+ * Key Class
+ * Has functions related to all the keys presented in the game.
+ */
 public class Key extends Object{
 
 	boolean triggered;

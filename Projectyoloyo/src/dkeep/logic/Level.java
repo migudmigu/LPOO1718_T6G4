@@ -2,6 +2,10 @@ package dkeep.logic;
 
 import java.util.Random;
 
+/**	
+ * Level Class
+ * Has all the maps and it's related functions.
+ */
 public class Level {
 	
 	int numOgres=0;

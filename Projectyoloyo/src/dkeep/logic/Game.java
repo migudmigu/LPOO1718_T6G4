@@ -2,6 +2,10 @@ package dkeep.logic;
 
 import dkeep.gui.GamePanel;
 
+/**	
+ * Game Class
+ * Main Class which has every object the game needs. Also has the functions that can keep the basic of the game flowing.
+ */
 public class Game {
 
 	public int gameOver = 0; //0 = keep playing       1 = defeat         2 = victory

@@ -1,5 +1,9 @@
 package dkeep.logic;
 
+/**	
+ * Door Class
+ * Has functions related to all the doors presented in the game.
+ */
 public class Door extends Object{
 
 	boolean opened;

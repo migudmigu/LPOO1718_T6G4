@@ -1,5 +1,9 @@
 package dkeep.logic;
 
+/**	
+ * Lever Class
+ * Has functions related to all the levers presented in the game.
+ */
 public class Lever extends Object{
 	
 	boolean triggered;

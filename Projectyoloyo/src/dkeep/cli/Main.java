@@ -4,10 +4,16 @@ import java.util.Scanner;
 
 import dkeep.logic.Game;
 
+/**	
+ * 
+ * Main Class
+ *
+ */
 public class Main {
 
 	/**
-	 * @param args
+	 * Main function
+	 * @param args Arguments of type String[]
 	 */
 	public static void main(String[] args) {
 
@@ -25,7 +31,8 @@ public class Main {
 	}
 	
 	/**
-	 * @return
+	 * Reads the pressed key
+	 * @return char which is the pressed key
 	 */
 	public static char readKey() {
 		Scanner s = new Scanner(System.in);

@@ -2,6 +2,10 @@ package dkeep.logic;
 
 import java.util.Random;
 
+/**	
+ * SuspiciousGuard Class
+ * Derived Class from the Class Guard. Represents the instance of the guard which is suspicious.
+ */
 public class SuspiciousGuard extends Guard {
 
 	/**

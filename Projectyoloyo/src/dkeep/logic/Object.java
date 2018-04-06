@@ -1,5 +1,9 @@
 package dkeep.logic;
 
+/**	
+ * Object Class
+ * Like the Character Class it is a SuperClass that relates to the Key and Lever Classes.
+ */
 public abstract class Object {
 
 	protected int x, y;

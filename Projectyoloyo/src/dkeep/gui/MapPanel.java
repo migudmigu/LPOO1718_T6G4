@@ -23,6 +23,10 @@ import javax.swing.JComboBox;
 import javax.swing.JSlider;
 import java.awt.Color;
 
+/**	
+ * MapPanel Class
+ * Class where the user is able to create his own new Map.
+ */
 public class MapPanel extends JPanel implements MouseListener {
 	private JTextField textField;
 	private JTextField textField_1;

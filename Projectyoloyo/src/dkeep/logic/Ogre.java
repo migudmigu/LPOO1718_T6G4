@@ -2,6 +2,10 @@ package dkeep.logic;
 
 import java.util.Random;
 
+/**	
+ * Ogre Class
+ * Has all the functions needed for all the ogres to move and their clubs as well.
+ */
 public class Ogre extends Character {
 
 	Random r;

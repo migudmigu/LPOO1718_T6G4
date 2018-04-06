@@ -2,6 +2,10 @@ package dkeep.logic;
 
 import java.util.Random;
 
+/**	
+ * Guard Class
+ * Has the general guard functions. Is used mainly by the RookieGuard, DrunkenGuard and SuspiciousGuard classes.
+ */
 public class Guard extends Character {
 	protected int pathStep = 0;
 	protected char[] guardpath = {'a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};

@@ -9,6 +9,10 @@ import javax.swing.SwingConstants;
 import dkeep.gui.StateMachine.Action;
 import dkeep.logic.Game;
 
+/**	
+ * MenuPanel Class
+ * Class where all the options to the game are visible.
+ */
 public class MenuPanel extends JPanel {
 
 	private StateMachine statemachine;

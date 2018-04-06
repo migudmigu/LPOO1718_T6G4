@@ -18,6 +18,10 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**	
+ * SettingsDialog Class
+ * Class where the user can find the options to the game itself. The user can choose the number of ogres and the guard personality.
+ */
 public class SettingsDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
