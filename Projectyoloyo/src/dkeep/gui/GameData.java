@@ -33,6 +33,7 @@ public class GameData {
 	ImageIcon heroicon;
 	ImageIcon flooricon;
 	
+	
 	public Level[] levels;
 	int lvlcount = 0;
 	
