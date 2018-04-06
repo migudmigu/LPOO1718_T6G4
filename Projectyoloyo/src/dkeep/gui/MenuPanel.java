@@ -23,7 +23,7 @@ public class MenuPanel extends JPanel {
 		settingsdialog = new SettingsDialog(gamedata);
 		this.statemachine = statemachine;
 		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.setBounds(173, 34, 109, 25);
+		btnNewGame.setBounds(224, 53, 109, 25);
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				statemachine.updateState(Action.NEW_GAME);
@@ -34,7 +34,7 @@ public class MenuPanel extends JPanel {
 		btnNewGame.setEnabled(false);
 
 		JButton btnExit = new JButton("EXIT");
-		btnExit.setBounds(189, 211, 63, 25);
+		btnExit.setBounds(244, 211, 63, 25);
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -49,7 +49,7 @@ public class MenuPanel extends JPanel {
 				statemachine.updateState(Action.CREATE_MAP_E);
 			}
 		});
-		btnNewMap.setBounds(183, 106, 99, 25);
+		btnNewMap.setBounds(224, 104, 99, 25);
 		add(btnNewMap);
 		add(btnNewGame);
 		
@@ -61,7 +61,7 @@ public class MenuPanel extends JPanel {
 				
 			}
 		});
-		btnSettings.setBounds(173, 160, 117, 25);
+		btnSettings.setBounds(224, 153, 99, 25);
 		add(btnSettings);
 
 	}

@@ -69,8 +69,8 @@ public class GameData {
 		this.hero = ImageIO.read(new File("Images/hero.png"));
 		this.floor = ImageIO.read(new File("Images/floor.jpg"));
 		this.wall = ImageIO.read(new File("Images/wall.png"));
-		this.VDoor = ImageIO.read(new File("Images/VerDoors.png"));
-		this.HDoor = ImageIO.read(new File("Images/HorDoors.png"));
+		this.VDoor = ImageIO.read(new File("Images/dooricon.png"));
+		this.HDoor = ImageIO.read(new File("Images/dooropen.png"));
 		this.guard = ImageIO.read(new File("Images/guardDown.png"));
 		this.lever = ImageIO.read(new File("Images/Lever.png"));
 		this.ogre = ImageIO.read(new File("Images/Ogre.png"));
@@ -82,8 +82,8 @@ public class GameData {
 		this.keyicon = new ImageIcon("Images/keyicon.png");
 		this.heroicon = new ImageIcon("Images/heroicon.png");
 		this.flooricon = new ImageIcon("Images/flooricon.png");
-		this.ogreicon = new ImageIcon("Images/Ogreicon.png");
-	}
+		this.ogreicon = new ImageIcon("Images/ogreicon.png");
+	} 
 	
 	public void addLevel(Level level) {
 		this.levels[lvlcount]=level;
@@ -93,12 +93,6 @@ public class GameData {
 	public int getLevelCount() {
 		return this.lvlcount;
 	}
-	
-//	public void checkDoors() throws IOException {
-//		if(game.doorsOpened)
-//		this.VDoor = ImageIO.read(new File("Images/HorDoors.png"));
-//		else VDoor = ImageIO.read(new File("Images/VerDoors.png"));
-//	}
 	
 	public void setHeroDirection(char key) throws IOException {
 		switch(key) {

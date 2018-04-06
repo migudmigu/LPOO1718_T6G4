@@ -90,13 +90,13 @@ public class Window {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		menupanel = new MenuPanel(statemachine,gamedata);
-		menupanel.setBounds(12, 30, 588, 389);
+		menupanel.setBounds(12, 30, 700, 600);
 		JanelaMenu.getContentPane().add(menupanel);
 		menupanel.setVisible(true);
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		mappanel = new MapPanel(statemachine,gamedata);
-		mappanel.setBounds(12, 30, 588, 389);
+		mappanel.setBounds(12, 30, 588, 410);
 		JanelaMenu.getContentPane().add(mappanel);
 		mappanel.setVisible(false);
 		

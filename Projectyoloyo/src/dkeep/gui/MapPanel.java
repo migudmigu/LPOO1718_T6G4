@@ -179,33 +179,33 @@ public class MapPanel extends JPanel implements MouseListener {
 		btnSaveLevel.setBounds(338, 329, 113, 25);
 		add(btnSaveLevel);
 
-		label = new JLabel("1");
+		label = new JLabel("");
 		label.setBackground(Color.BLACK);
 		label.setBounds(337, 155, 30, 30);
 		add(label);
 		label.setVisible(true);
 
-		label_1 = new JLabel("2");
+		label_1 = new JLabel("");
 		label_1.setBackground(Color.GRAY);
 		label_1.setBounds(379, 155, 30, 30);
 		add(label_1);
 
-		label_2 = new JLabel("3");
+		label_2 = new JLabel("");
 		label_2.setBackground(Color.GRAY);
 		label_2.setBounds(421, 155, 30, 30);
 		add(label_2);
 
-		label_3 = new JLabel("4");
+		label_3 = new JLabel("");
 		label_3.setBackground(Color.GRAY);
 		label_3.setBounds(338, 217, 30, 30);
 		add(label_3);
 
-		label_4 = new JLabel("5");
+		label_4 = new JLabel("");
 		label_4.setBackground(Color.GRAY);
 		label_4.setBounds(378, 217, 30, 30);
 		add(label_4);
 
-		label_5 = new JLabel("6");
+		label_5 = new JLabel("");
 		label_5.setBackground(Color.GRAY);
 		label_5.setBounds(421, 217, 30, 30);
 		add(label_5);
