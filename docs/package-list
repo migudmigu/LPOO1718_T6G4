@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-dkeep.logic
-=======
 dkeep.cli
->>>>>>> a12a4322d80668fe62d9fc59a0a1d9ae5e86d1f6
+dkeep.gui
+dkeep.logic
+dkeep.test
